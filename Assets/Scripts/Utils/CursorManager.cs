@@ -5,36 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class CursorManager : MonoBehaviour
 {
-    static CursorManager instance;
     [SerializeField]
-    public Texture2D defaulfCursor;
+    public Texture2D defaultCursor;
     [SerializeField]
     public Texture2D clickCursor;
     public Vector2 hotspot;
-    CursorMode mode;
+
+    bool showing;
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
         DontDestroyOnLoad(gameObject);
-        Cursor.SetCursor(defaulfCursor, hotspot, CursorMode.ForceSoftware);
+        Cursor.SetCursor(defaultCursor, hotspot, CursorMode.ForceSoftware);
     }
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!showing) return;
+
+        if (Input.anyKey)
         {
             Cursor.SetCursor(clickCursor, hotspot, CursorMode.ForceSoftware);
         }
-
-        if (Input.GetMouseButtonUp(0))
+        else
         {
-            Cursor.SetCursor(defaulfCursor, hotspot, CursorMode.ForceSoftware);
+            Cursor.SetCursor(defaultCursor, hotspot, CursorMode.ForceSoftware);
         }
+
+    }
+
+    public void ShowCursor()
+    {
+        showing = true;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    public void HideCursor()
+    {
+        showing = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
 
     }
 }

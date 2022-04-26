@@ -8,11 +8,22 @@ using static UEventHandler;
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerInputManager : MonoBehaviour
 {
+
     public string[] devices;
     public bool secondPlayer;
+
+    public Camera playerCamera { get; private set; }
+
     private void Awake()
     {
+
+
         var playerInput = GetComponent<PlayerInput>();
+
+        if (playerInput.camera == null)
+            playerCamera = Camera.main;
+        else
+            playerCamera = playerInput.camera;
         //if (secondPlayer)
         //    playerInput.SwitchCurrentControlScheme(playerInput.devices[playerInput.devices.Count-1]);
         devices = playerInput.devices.Select(x => x.name).ToArray();
