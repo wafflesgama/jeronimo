@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public PlayerInputManager player1InputManager;
-    public PlayerInputManager player2InputManager;
+    public PlayerManager playerManager;
 
     public LevelUiManager uiManager;
 
@@ -14,8 +13,8 @@ public class LevelManager : MonoBehaviour
     UEventHandler eventHandler = new UEventHandler();
     void Start()
     {
-        player1InputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
-        player2InputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
+        playerManager.player1Input.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
+        playerManager.player2Input.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
     }
 
     private void OnDestroy()

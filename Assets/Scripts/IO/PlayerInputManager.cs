@@ -14,20 +14,29 @@ public class PlayerInputManager : MonoBehaviour
 
     public Camera playerCamera { get; private set; }
 
+    PlayerInput input;
+
     private void Awake()
     {
 
 
-        var playerInput = GetComponent<PlayerInput>();
+        input = GetComponent<PlayerInput>();
 
-        if (playerInput.camera == null)
+        if (input.camera == null)
             playerCamera = Camera.main;
         else
-            playerCamera = playerInput.camera;
+            playerCamera = input.camera;
         //if (secondPlayer)
         //    playerInput.SwitchCurrentControlScheme(playerInput.devices[playerInput.devices.Count-1]);
-        devices = playerInput.devices.Select(x => x.name).ToArray();
+        devices = input.devices.Select(x => x.name).ToArray();
         //playerInput.actions.
+    }
+
+    public void ChangeInputDevice(int index)
+    {
+        if (index >= devices.Length) return;
+
+        input.SwitchCurrentControlScheme(input.devices[index]);
     }
     // public BufferedButton input_bufferedJump = new BufferedButton { bufferTime = 2 };
     public Button<Vector2> input_move = new Button<Vector2>();
