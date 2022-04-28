@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -8,7 +9,7 @@ public class LevelManager : MonoBehaviour
 
     public LevelUiManager uiManager;
 
-    bool paused = false;
+    bool paused = false,pauseFreeze;
 
     UEventHandler eventHandler = new UEventHandler();
     void Start()
@@ -29,13 +30,18 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    public void PauseResume()
+    public async void PauseResume()
     {
+        if (pauseFreeze) return;
+        pauseFreeze = true;
+
         paused = !paused;
+
 
         if (paused)
         {
             uiManager.Pause();
+            playerManager.RefreshDevices();
             //Time.timeScale = 0;
         }
         else
@@ -44,7 +50,8 @@ public class LevelManager : MonoBehaviour
             //Time.timeScale = 1f;
         }
 
-
+        await Task.Delay(150);
+        pauseFreeze = false;
 
     }
 }

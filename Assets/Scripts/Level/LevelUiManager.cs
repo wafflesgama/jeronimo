@@ -14,7 +14,22 @@ public class LevelUiManager : MonoBehaviour
     public CanvasGroup pauseParentGroup;
     public CanvasGroup pauseMainGroup;
     public CanvasGroup pausePlayersGroup;
+
+    [Header("Player Assign Screen")]
     public TextMeshProUGUI devicesText;
+    public PlayerAssignArea player1Area;
+    public PlayerAssignArea player2Area;
+    public PlayerAssignArea devicesArea;
+    public GameObject keyboardDeviceItem;
+    public GameObject controllerdDeviceItem;
+
+
+    List<Transform> devices;
+
+    private void Awake()
+    {
+        devices = new List<Transform>();
+    }
 
     void Start()
     {
@@ -33,12 +48,14 @@ public class LevelUiManager : MonoBehaviour
 
     public void Resume()
     {
+        Debug.Log("Resume");
         pauseParentGroup.Hide();
         cursorManager.HideCursor();
     }
 
     public void Pause()
     {
+        Debug.Log("Pause");
         pauseParentGroup.Show();
         cursorManager.ShowCursor();
     }
@@ -47,9 +64,49 @@ public class LevelUiManager : MonoBehaviour
     {
         string text = "";
         foreach (string device in devices)
-            text += device + " | "; 
+            text += device + " | ";
 
         devicesText.text = text;
+    }
+
+    public void ClearDevices()
+    {
+        foreach (var device in devices)
+            Destroy(device.gameObject);
+
+        devices.Clear();
+    }
+
+    public void AddAvailableDevice(int id, bool isController)
+    {
+        var device = CreateDevice(id, isController);
+        //device.transform.SetParent(devicesArea.transform);
+        devicesArea.OnDrag(device,false);
+    }
+
+    public void AddPlayerDevice(int id, bool isController, bool player1)
+    {
+        var device = CreateDevice(id, isController);
+
+        if (player1)
+        {
+            player1Area.OnDrag(device);
+            //player1Area.PlaceInArea(device);
+        }
+        else
+        {
+            player2Area.OnDrag(device);
+            //player2Area.PlaceInArea(device);
+
+        }
+    }
+    private DraggableItem CreateDevice(int id, bool isController)
+    {
+        GameObject obj;
+        obj = isController ? GameObject.Instantiate(controllerdDeviceItem) : GameObject.Instantiate(keyboardDeviceItem);
+        obj.name = $"{id}- Device";
+        devices.Add(obj.transform);
+        return obj.GetComponent<DraggableItem>();
     }
 
 
