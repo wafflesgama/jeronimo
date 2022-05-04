@@ -24,6 +24,7 @@ public class DetectionController : MonoBehaviour
     private EnemyMovController m_Controller;
 
     private DetectionStatus m_Status = DetectionStatus.NOTDETECTED;
+    private SpriteRenderer detectionMeter;
     public float DetectionDecayValue = -10f;
     public float DetectionIncreaseValue = 20f;
     public float DetectionMaxValue = 100f;
@@ -33,6 +34,8 @@ public class DetectionController : MonoBehaviour
     private void Start()
     {
         m_Controller = GetComponent<EnemyMovController>();
+        detectionMeter = GetComponentInChildren<SpriteRenderer>();
+        detectionMeter.material.shader = Shader.Find("Shader Graphs/QuestionMark");
         StartCoroutine("FindTargets",0.2f);   
     }
 
@@ -70,14 +73,14 @@ public class DetectionController : MonoBehaviour
 
     void updateDetectionStatus()
     {
-        Debug.Log(DetectionValue);
         if(m_Status == DetectionStatus.NOTDETECTED)
         {
             if (visibleTargets.Count != 0)
             {
                 DetectionValue = Mathf.Clamp(DetectionValue + DetectionIncreaseValue, 0f, 100f);
-                
-                if(DetectionValue == 100)
+                detectionMeter.material.SetFloat("_Value", DetectionValue/100);
+
+                if (DetectionValue == 100)
                 {
                     m_Status = DetectionStatus.DETECTED;
                     m_Controller.setEnemyDetected(true);
@@ -86,6 +89,7 @@ public class DetectionController : MonoBehaviour
             else
             {
                 DetectionValue = Mathf.Clamp(DetectionValue + DetectionDecayValue, 0f, 100f);
+                detectionMeter.material.SetFloat("_Value", DetectionValue / 100);
             }
         }
         else
@@ -93,6 +97,7 @@ public class DetectionController : MonoBehaviour
             if (visibleTargets.Count == 0)
             {
                 DetectionValue = Mathf.Clamp(DetectionValue + DetectionDecayValue, 0f, 100f);
+                detectionMeter.material.SetFloat("_Value", DetectionValue / 100);
 
                 if (DetectionValue == 0)
                 {
