@@ -9,12 +9,14 @@ public class DraggableItem : EventTrigger
     bool dragging;
     Vector3 initPos;
 
-    private static DragArea[] dragAreas;
+    private DragArea[] dragAreas;
+
+    private DragArea currentArea;
 
     private void Start()
     {
-        if (dragAreas == null)
-            dragAreas = Transform.FindObjectsOfType<DragArea>();
+        //if (dragAreas == null)
+        dragAreas = Transform.FindObjectsOfType<DragArea>();
         //dragAreasContainer.FindObjectOfType<DragArea>();
     }
 
@@ -35,21 +37,33 @@ public class DraggableItem : EventTrigger
     public override void OnPointerUp(PointerEventData eventData)
     {
         dragging = false;
-        bool foundArea = false;
+        DragArea foundArea = null;
 
         foreach (var area in dragAreas)
         {
-            if (area ==null || area.gameObject ==null || !area.gameObject.activeSelf || !CheckIfCursorInside(area.rect)) continue;
-
-            transform.SetParent(area.gameObject.transform, true);
-            area.OnDrag(transform);
-            foundArea = true;
+            if (area == null || area.gameObject == null || !area.gameObject.activeSelf || !CheckIfCursorInside(area.rect)) continue;
+            foundArea = area;
             break;
         }
 
-        if (!foundArea)
+        if (foundArea == null || foundArea == currentArea)
             transform.position = initPos;
+        else
+        {
+            foundArea.OnDrag(this);
+        }
+
     }
+
+
+    public void SetCurrentArea(DragArea area)
+    {
+        if (currentArea != null)
+            currentArea.RemoveObject();
+
+        currentArea = area;
+    }
+
 
     private static bool CheckIfCursorInside(RectTransform rect)
     {
@@ -64,7 +78,7 @@ public class DraggableItem : EventTrigger
         //    normalizedMousePosition.y > rect.anchorMin.y &&
         //    normalizedMousePosition.y < rect.anchorMax.y);
 
-            //return Input.mousePosition.x > rect.rect.xMin && Input.mousePosition.x < rect.rect.xMax &&
-            //  Input.mousePosition.y > rect.rect.yMin && Input.mousePosition.y < rect.rect.yMax;
+        //return Input.mousePosition.x > rect.rect.xMin && Input.mousePosition.x < rect.rect.xMax &&
+        //  Input.mousePosition.y > rect.rect.yMin && Input.mousePosition.y < rect.rect.yMax;
     }
 }

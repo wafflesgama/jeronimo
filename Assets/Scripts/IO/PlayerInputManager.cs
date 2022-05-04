@@ -32,11 +32,19 @@ public class PlayerInputManager : MonoBehaviour
         //playerInput.actions.
     }
 
-    public void ChangeInputDevice(int index)
+    public InputDevice GetMainInput() => input.devices[0];
+    public void ChangeInputDevice(int inputId)
     {
-        if (index >= devices.Length) return;
+        //if (index >= devices.Length) return;
+        //var device = InputSystem.devices.Where(x => x.deviceId == inputId).FirstOrDefault();
+        var device = InputSystem.GetDeviceById(inputId);
 
-        input.SwitchCurrentControlScheme(input.devices[index]);
+        if (device == null) return;
+
+        bool isKeyboard = device.name.Contains("Keyboard");
+
+        input.SwitchCurrentControlScheme(isKeyboard ? "Keyboard&Mouse" : "Gamepad", device);
+        devices = input.devices.Select(x => x.name).ToArray();
     }
     // public BufferedButton input_bufferedJump = new BufferedButton { bufferTime = 2 };
     public Button<Vector2> input_move = new Button<Vector2>();
