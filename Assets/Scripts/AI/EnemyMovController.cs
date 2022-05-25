@@ -47,7 +47,7 @@ public class EnemyMovController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(currentState);
+
         switch (currentState)
         {
             case EnemyState.IDLE:
@@ -101,6 +101,7 @@ public class EnemyMovController : MonoBehaviour
                 animator.SetFloat("Speed", 2f);
                 if (playerDetected)
                 {
+                    
                     agent.SetDestination(players[closestPlayer].transform.position);
                     currentState = EnemyState.FOLLOWING;
                 }
