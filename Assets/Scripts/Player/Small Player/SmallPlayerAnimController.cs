@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SmallPlayerAnimController : MonoBehaviour
 {
+    private Quaternion direction;
     public Rigidbody body;
 
     Animator animator;
@@ -31,7 +32,17 @@ public class SmallPlayerAnimController : MonoBehaviour
         vel.Normalize();
 
         if (magnitude > 0)
+        {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(vel), rotationSpeed * Time.deltaTime);
+            direction = transform.rotation;
         //transform.forward = Vector3.Lerp(transform.forward, vel, Time.deltaTime * rotationSpeed);
+        }
     }
+
+    public Quaternion getDirection()
+    {
+        return this.direction;
+    }
+
+
 }
