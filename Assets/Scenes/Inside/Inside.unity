@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00018716094, g: 0.008664544, b: 0.025670258, a: 1}
+  m_IndirectSpecularColor: {r: 0.00018716029, g: 0.008664504, b: 0.02567015, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20679,6 +20679,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3763178575564090983, guid: 6ae2c3512a2bfc347acbc3128e009119, type: 3}
   m_PrefabInstance: {fileID: 703231886}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &718689480 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4125549245898579471, guid: c0e4d6086e45a6141afef66ba335d9a1, type: 3}
+  m_PrefabInstance: {fileID: 219759419}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &725820552
 Mesh:
   m_ObjectHideFlags: 0
@@ -22034,11 +22039,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3763178575564090983, guid: 6ae2c3512a2bfc347acbc3128e009119, type: 3}
   m_PrefabInstance: {fileID: 808415286}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &813295846 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4125549245953389015, guid: c0e4d6086e45a6141afef66ba335d9a1, type: 3}
-  m_PrefabInstance: {fileID: 219759419}
   m_PrefabAsset: {fileID: 0}
 --- !u!43 &819837782
 Mesh:
@@ -27923,11 +27923,11 @@ PrefabInstance:
     - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: player1
       value: 
-      objectReference: {fileID: 1704822973}
+      objectReference: {fileID: 1592975939}
     - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: player2
       value: 
-      objectReference: {fileID: 813295846}
+      objectReference: {fileID: 718689480}
     - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: followOffset.y
       value: 9
@@ -40597,6 +40597,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3763178575564090983, guid: 6ae2c3512a2bfc347acbc3128e009119, type: 3}
   m_PrefabInstance: {fileID: 1570670882}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1592975939 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4125549245898579471, guid: c0e4d6086e45a6141afef66ba335d9a1, type: 3}
+  m_PrefabInstance: {fileID: 1089099987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1600990484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42629,11 +42634,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!4 &1704822973 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4125549245953389015, guid: c0e4d6086e45a6141afef66ba335d9a1, type: 3}
-  m_PrefabInstance: {fileID: 1089099987}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1707041573
 PrefabInstance:
   m_ObjectHideFlags: 0
