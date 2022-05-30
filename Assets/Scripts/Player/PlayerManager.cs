@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 {
     public PlayerInputManager player1Input;
     public PlayerInputManager player2Input;
+    public PlayerInputManager bigPlayer1Input;
+    public PlayerInputManager bigPlayer2Input;
 
     //public UnityEngine.InputSystem.PlayerInputManager inputManager;
 
@@ -56,9 +58,15 @@ public class PlayerManager : MonoBehaviour
     public void SwitchPlayerInput(int playerIndex, int controllerId)
     {
         if (playerIndex == 1)
+        {
             player1Input.ChangeInputDevice(controllerId);
+            bigPlayer1Input.ChangeInputDevice(controllerId);
+        }
         else
+        {
             player2Input.ChangeInputDevice(controllerId);
+            bigPlayer2Input.ChangeInputDevice(controllerId);
+        }
     }
 
     // Update is called once per frame

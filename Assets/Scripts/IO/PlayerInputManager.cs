@@ -32,7 +32,7 @@ public class PlayerInputManager : MonoBehaviour
         //playerInput.actions.
     }
 
-    public InputDevice GetMainInput() => input.devices[0];
+    public InputDevice GetMainInput() => input.devices.Count <= 0 ? null : input.devices[0];
     public void ChangeInputDevice(int inputId)
     {
         //if (index >= devices.Length) return;
@@ -46,6 +46,8 @@ public class PlayerInputManager : MonoBehaviour
         input.SwitchCurrentControlScheme(isKeyboard ? "Keyboard&Mouse" : "Gamepad", device);
         devices = input.devices.Select(x => x.name).ToArray();
     }
+
+
     // public BufferedButton input_bufferedJump = new BufferedButton { bufferTime = 2 };
     public Button<Vector2> input_move = new Button<Vector2>();
     public Button<Vector2> input_look = new Button<Vector2>();
