@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9027638024168738119}
   - component: {fileID: 9027638024168738112}
   - component: {fileID: 9027638024168738114}
+  - component: {fileID: 8039744050073934186}
   m_Layer: 0
   m_Name: SplitScreen Camera
   m_TagString: MainCamera
@@ -139,3 +140,17 @@ MonoBehaviour:
   splitterColor: {r: 0, g: 0, b: 0, a: 0}
   splitterWidth: 0.1
   unlitMaterial: {fileID: 2100000, guid: 8153fed18a121d64584de292c9df8da0, type: 2}
+--- !u!114 &8039744050073934186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9027638024168738115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
