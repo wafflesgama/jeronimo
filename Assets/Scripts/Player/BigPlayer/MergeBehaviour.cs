@@ -33,12 +33,18 @@ public class MergeBehaviour : MonoBehaviour
         BigPlayer.SetActive(false);
     }
 
+    public bool getIsMerged()
+    {
+        return isMerged;
+    }
+
     private void MergePlayers()
     {
         isMerged = true;
         Player1.SetActive(false);
         Player2.SetActive(false);
         BigPlayer.SetActive(true);
+        BigPlayerPosition.position = Player1Position.position;
         
     }
 
@@ -91,8 +97,6 @@ public class MergeBehaviour : MonoBehaviour
     {
         float radius = 4f;
 
-        Debug.Log("Big Player");
-        Debug.Log(playerPos);
 
         while (true)
         {
@@ -104,8 +108,6 @@ public class MergeBehaviour : MonoBehaviour
             }
         }
 
-        Debug.Log("Player 1");
-        Debug.Log(Player1Position.position);
 
         while (true)
         {
@@ -117,9 +119,6 @@ public class MergeBehaviour : MonoBehaviour
                 break;
             }
         }
-
-        Debug.Log("Player 2");
-        Debug.Log(Player2Position.position);
 
         return;
     }
