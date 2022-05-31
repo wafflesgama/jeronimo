@@ -15,6 +15,8 @@ public class MergeBehaviour : MonoBehaviour
     private SmallPlayerMovController Player1Controller;
     private SmallPlayerMovController Player2Controller;
 
+    public PlayerManager PlayerManager;
+
     public float mergeDistance = 1.3f;
 
     public bool isMerged = false;
@@ -55,6 +57,7 @@ public class MergeBehaviour : MonoBehaviour
         Player2.SetActive(true);
         BigPlayer.SetActive(false);
         selectUnmergePositions(BigPlayerPosition.transform.position);
+        PlayerManager.RefreshDevices();
     }
 
     // Update is called once per frame
