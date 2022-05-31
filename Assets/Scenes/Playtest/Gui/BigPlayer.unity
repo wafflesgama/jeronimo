@@ -23719,6 +23719,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &853640497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9169274153968121616, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
+  m_PrefabInstance: {fileID: 5079826652646817695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &862563925
 Mesh:
   m_ObjectHideFlags: 0
@@ -28568,6 +28573,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 718689480}
     - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
+      propertyPath: bigPlayer
+      value: 
+      objectReference: {fileID: 853640497}
+    - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: followOffset.y
       value: 9
       objectReference: {fileID: 0}
@@ -28575,6 +28584,10 @@ PrefabInstance:
       propertyPath: followOffset.z
       value: -8
       objectReference: {fileID: 0}
+    - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
+      propertyPath: mergeBehaviour
+      value: 
+      objectReference: {fileID: 1581819658}
     - target: {fileID: 9027638024168738115, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: m_Name
       value: SplitScreen Camera
@@ -41216,8 +41229,10 @@ MonoBehaviour:
   Player1: {fileID: 1964165663}
   Player2: {fileID: 1105051666}
   BigPlayer: {fileID: 112346359}
+  PlayerManager: {fileID: 1581819660}
   mergeDistance: 1.2
   isMerged: 0
+  unmerge: 0
 --- !u!114 &1581819659
 MonoBehaviour:
   m_ObjectHideFlags: 0
