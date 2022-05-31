@@ -181,4 +181,15 @@ public class SmallPlayerMovController : MonoBehaviour
 
         horizontalVelMag = horizontalVel.magnitude;
     }
+
+    public Vector3 getMoveDirection()
+    {
+        return rb.velocity;
+    }
+
+    public bool PlayerIsGrounded()
+    {
+        CheckGround();
+        return isGrounded;
+    }
 }
