@@ -8,6 +8,8 @@ public class MergeBehaviour : MonoBehaviour
     public GameObject Player2;
     public GameObject BigPlayer;
 
+    public BigPlayerDirectionDisplayer displayer;
+
     private Transform Player1Position;
     private Transform Player2Position;
     private Transform BigPlayerPosition;
@@ -21,6 +23,8 @@ public class MergeBehaviour : MonoBehaviour
 
     public bool isMerged = false;
     public bool unmerge = false;
+
+    public float unmergeTimer = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +46,7 @@ public class MergeBehaviour : MonoBehaviour
 
     private void MergePlayers()
     {
+        unmergeTimer = 1f;
         isMerged = true;
         Player1.SetActive(false);
         Player2.SetActive(false);
@@ -52,6 +57,7 @@ public class MergeBehaviour : MonoBehaviour
 
     private void UnmergePlayers()
     {
+        unmergeTimer = 1f;
         isMerged = false;
         Player1.SetActive(true);
         Player2.SetActive(true);
@@ -61,15 +67,25 @@ public class MergeBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (isMerged)
         {
-            if (unmerge)
+            float angle = displayer.getDotProduct() * Mathf.Rad2Deg;
+            
+
+            if (angle < 10 && unmergeTimer < 0)
             {
-                
                 unmerge = false;
                 UnmergePlayers();
+            }
+            else if(angle < 10)
+            {
+                unmergeTimer -= Time.deltaTime;
+            }
+            else
+            {
+                unmergeTimer = 1f;
             }
         }
         else
@@ -81,19 +97,6 @@ public class MergeBehaviour : MonoBehaviour
                 MergePlayers();
             }
         }
-    }
-
-    private bool goingOppositeDirections()
-    {
-        Vector3 pos1 = Vector3.Normalize(Player1Controller.getMoveDirection());
-        Vector3 pos2 = Vector3.Normalize(Player2Controller.getMoveDirection());
-
-        float angle = Mathf.Rad2Deg * Mathf.Acos(Vector3.Dot(pos1,pos2));
-        
-        if(angle >= 0 && angle <= 90)
-            return true;
-        else
-            return false;
     }
 
     private void selectUnmergePositions(Vector3 playerPos)

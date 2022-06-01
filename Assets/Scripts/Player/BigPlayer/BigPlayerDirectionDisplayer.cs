@@ -22,6 +22,8 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
     public float arrowGrowFactor = 2f;
     public Ease arrowShrinkEase = Ease.OutElastic;
 
+    public float dotProduct;
+
 
     bool bigArrowShowing;
 
@@ -51,6 +53,7 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
         player2Direction.forward = Vector3.Slerp(player2Direction.forward, transformedMov2, Time.deltaTime * lerpSpeed);
 
         var dot = Vector3.Dot(player1Direction.forward, player2Direction.forward);
+        dotProduct = dot;
         if (dot > minMergeIconThres && !bigArrowShowing)
         {
             player2Arrow.enabled = false;
@@ -67,5 +70,10 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
             bigArrowShowing = false;
         }
 
+    }
+
+    public float getDotProduct()
+    {
+        return dotProduct;
     }
 }
