@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9027638024168738117}
   - component: {fileID: 9027638024168738118}
-  - component: {fileID: 9027638024168738119}
   - component: {fileID: 9027638024168738112}
   - component: {fileID: 9027638024168738114}
   - component: {fileID: 8039744050073934186}
@@ -28,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9027638024168738115}
-  m_LocalRotation: {x: 0.28228065, y: 0.009858119, z: -0.00290089, w: 0.95927685}
+  m_LocalRotation: {x: 0.2822847, y: 0.00986173, z: -0.0029019977, w: 0.9592756}
   m_LocalPosition: {x: -12.448142, y: -7.0273685, z: 28.626389}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 32.795, y: 1.178, z: 0}
 --- !u!20 &9027638024168738118
 Camera:
   m_ObjectHideFlags: 0
@@ -78,14 +77,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &9027638024168738119
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9027638024168738115}
-  m_Enabled: 1
 --- !u!114 &9027638024168738112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,12 +124,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player1: {fileID: 0}
   player2: {fileID: 0}
+  bigPlayer: {fileID: 0}
+  mergeBehaviour: {fileID: 0}
   splitDistance: 5
-  followOffset: {x: 0, y: 10.6, z: -11.5}
+  followOffset: {x: 0, y: 9, z: -8}
   followLerp: 15
   rotationLerp: 11
   splitterColor: {r: 0, g: 0, b: 0, a: 0}
-  splitterWidth: 0.1
+  splitterWidth: 0.08
   unlitMaterial: {fileID: 2100000, guid: 8153fed18a121d64584de292c9df8da0, type: 2}
 --- !u!114 &8039744050073934186
 MonoBehaviour:

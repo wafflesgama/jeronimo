@@ -58,7 +58,7 @@ public class SplitScreen : MonoBehaviour
         splitter = GameObject.CreatePrimitive(PrimitiveType.Quad);
         splitter.transform.parent = gameObject.transform;
         splitter.transform.localPosition = Vector3.forward;
-        splitter.transform.localScale = new Vector3(2, splitterWidth / 10, 1);
+        splitter.transform.localScale = new Vector3(3, splitterWidth / 10, 1);
         splitter.transform.localEulerAngles = Vector3.zero;
         splitter.SetActive(false);
 

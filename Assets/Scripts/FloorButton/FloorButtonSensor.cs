@@ -8,12 +8,12 @@ public class FloorButtonSensor : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        FloorButtonDoor.sensor[numDoor] = true;
+        FloorButtonDoor.sensor[numDoor] ++;
     }
  
     void OnTriggerExit(Collider other)
     {
-        FloorButtonDoor.sensor[numDoor] = false;
+        FloorButtonDoor.sensor[numDoor] --;
     }
     
 }
