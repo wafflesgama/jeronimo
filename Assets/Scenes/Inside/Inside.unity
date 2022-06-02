@@ -33071,10 +33071,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8039744050073934186, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
-      propertyPath: attenuationObject
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: player1
       value: 
@@ -33087,18 +33083,6 @@ PrefabInstance:
       propertyPath: bigPlayer
       value: 
       objectReference: {fileID: 596013065}
-    - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
-      propertyPath: splitterWidth
-      value: 0.08
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
-      propertyPath: followOffset.y
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
-      propertyPath: followOffset.z
-      value: -8
-      objectReference: {fileID: 0}
     - target: {fileID: 9027638024168738114, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
       propertyPath: mergeBehaviour
       value: 
@@ -33151,8 +33135,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 9027638024168738119, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4642be90135b58e40b3692348adfbb0e, type: 3}
 --- !u!43 &1046299293
 Mesh:
