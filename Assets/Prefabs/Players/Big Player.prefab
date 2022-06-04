@@ -283,6 +283,7 @@ MonoBehaviour:
   arrowGrowSpeed: 0.5
   arrowGrowFactor: 2
   arrowShrinkEase: 24
+  dotProduct: 0
 --- !u!1 &9169274153602683960
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,9 +820,9 @@ GameObject:
   - component: {fileID: 9169274153968121616}
   - component: {fileID: 9169274154085163340}
   - component: {fileID: 9169274154085163341}
-  - component: {fileID: 9169274154085163336}
   - component: {fileID: 9169274154085163338}
   - component: {fileID: 9169274154085163339}
+  - component: {fileID: 3141111595514185073}
   m_Layer: 6
   m_Name: PlayerController
   m_TagString: Player
@@ -895,37 +896,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &9169274154085163336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9169274154085163337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d5707758239a644b700860b0bf1f85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deac: 0.1
-  springStrength: 1000
-  dampenStrength: 60
-  floatHeight: 1.9
-  minGroundHeight: 2
-  maxAccel: 2.5
-  mask:
-    serializedVersion: 2
-    m_Bits: 1
-  castDist: 2
-  inputManager: {fileID: 0}
-  goalVelocity: 10
-  jumpForce: 5
-  jumpFrames: 100
-  jumpStartCheckFrames: 10
-  jumpDownForce: 100
-  vel: {x: 0, y: 0, z: 0}
-  horizontalVel: {x: 0, y: 0, z: 0}
-  horizontalVelMag: 0
 --- !u!136 &9169274154085163338
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -956,6 +926,36 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3141111595514185073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169274154085163337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51b7c04307d8e1428e1af597a24439e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deac: 0
+  springStrength: 1
+  dampenStrength: 1
+  floatHeight: 1
+  minGroundHeight: 2
+  maxAccel: 1.5
+  maxStepBonus: 16
+  mask:
+    serializedVersion: 2
+    m_Bits: 1
+  castDist: 4
+  inputManager1: {fileID: 0}
+  inputManager2: {fileID: 0}
+  goalVelocity: 6
+  jumpDownForce: 2
+  vel: {x: 0, y: 0, z: 0}
+  horizontalVel: {x: 0, y: 0, z: 0}
+  horizontalVelMag: 0
 --- !u!1 &9169274154194962633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1307,12 +1307,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9169274154501593392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97e477d432c60bc45acd4638bd8cb3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mov: {fileID: 9169274154085163336}
+  mov: {fileID: 0}
   dustVfx: {fileID: 9169274155408384881}
   dustRate: 10
   dustCurve:

@@ -1434,6 +1434,7 @@ MonoBehaviour:
   castDist: 2
   inputManager: {fileID: 0}
   goalVelocity: 10
+  sneakVelocity: 5
   jumpForce: 5
   jumpFrames: 100
   jumpStartCheckFrames: 10

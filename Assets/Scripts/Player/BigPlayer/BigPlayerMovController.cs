@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,48 +11,54 @@ public class BigPlayerMovController : MonoBehaviour
     public float dampenStrength = 1;
     public float floatHeight = 1;
     public float minGroundHeight;
-    public float maxAccel = 10;
+
+    public float baseStepSpeed = 30;
+    public float maxSpeed = 80;
+    public int maxStepCountBonus = 16;
     public LayerMask mask;
     public float castDist = 1f;
 
     public PlayerInputManager inputManager1;
     public PlayerInputManager inputManager2;
 
-    private bool playerTurn = false;
+    public float secondsToResetStep = 2f;
 
     public float goalVelocity;
-
-    public UEvent OnJump = new UEvent();
-
-    public float jumpDownForce = 2f;
-
-    public UEvent OnLand = new UEvent();
 
     public Vector3 vel;
     public Vector3 horizontalVel;
     public float horizontalVelMag;
 
+
     public bool isFloatGrounded { get; private set; }
     public bool isGrounded { get; private set; }
 
-    bool isJumping;
-    int jumpCounter;
-    int jumpStartCounter;
 
-    bool isLanding;
+    public UEvent<bool> OnStep = new UEvent<bool>();
+    public UEvent OnReset = new UEvent();
 
-    Rigidbody rb;
+    public Rigidbody rb { get; private set; }
     RaycastHit groundHit;
 
     UEventHandler eventHandler = new UEventHandler();
 
+    public bool? stepDirection;
+    public int stepCounter;
+
+    public DateTime? lastStep;
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
     void Start()
     {
-        //inputManager.input_jump.Onpressed.Subscribe(eventHandler, () => jumpCounter = jumpFrames);
+        inputManager1.input_jump.Onpressed.Subscribe(eventHandler, () => Step(true));
+        inputManager2.input_jump.Onpressed.Subscribe(eventHandler, () => Step(false));
+        ResetMovement();
+    }
+    private void OnDestroy()
+    {
+        eventHandler.UnsubcribeAll();
     }
 
 
@@ -60,12 +67,22 @@ public class BigPlayerMovController : MonoBehaviour
         CheckGround();
 
         Float();
-        Move();
+        //Move();
 
         AirbourneDecel();
 
-        if (jumpCounter > 0)
-            jumpCounter--;
+        CheckStepTime();
+    }
+
+    private void CheckStepTime()
+    {
+        if (!lastStep.HasValue) return;
+
+        var timeDif = DateTime.Now - lastStep.Value;
+        if (timeDif.TotalSeconds < secondsToResetStep) return;
+
+        lastStep = null;
+        ResetMovement();
     }
 
     private void CheckGround()
@@ -74,48 +91,71 @@ public class BigPlayerMovController : MonoBehaviour
         isGrounded = isFloatGrounded ? groundHit.distance <= minGroundHeight : false;
     }
 
-    private void Move()
+
+    public void ResetMovement()
     {
+        stepDirection = null;
+        ResetInertia();
+    }
+    public void ResetInertia()
+    {
+        Debug.Log("Reset Intertia");
+        OnReset.TryInvoke();
+        stepCounter = 1;
+    }
+    private void Step(bool right)
+    {
+
         if (!isGrounded) return;
+
+        if (stepDirection != null && stepDirection == !right)
+        {
+            ResetMovement();
+            return;
+            //stepDirection = !stepDirection; //Invert once to maintain same side
+
+        }
+
+        lastStep = DateTime.Now;
+        OnStep.TryInvoke(right);
+
+        if (stepDirection == null)
+            stepDirection = right;
+
+        Debug.Log("Step right- " + right);
 
         Vector3 force;
 
-        if (!playerTurn)
-        {
-            var move = inputManager1.input_move.value;
+        // Get Players Directions
+        var move1 = inputManager1.input_move.value;
+        var moveRet1 = new Vector3(move1.x, 0, move1.y);
+        var transformedMove1 = Camera.main.transform.TransformDirection(moveRet1);
+        transformedMove1.y = 0;
 
-            var moveRet = new Vector3(move.x, 0, move.y);
-            var transformedMove = inputManager1.playerCamera.transform.TransformDirection(moveRet);
-            transformedMove.y = 0;
-            
-            var aceleration = transformedMove * goalVelocity - rb.velocity;
-            aceleration = Vector3.ClampMagnitude(aceleration, maxAccel);
-            force = rb.mass * (aceleration / Time.fixedDeltaTime);
-            force.y = 0;
-            playerTurn = true;
-        }
-        else
-        {
-            var move = inputManager2.input_move.value;
+        var move2 = inputManager2.input_move.value;
+        var moveRet2 = new Vector3(move2.x, 0, move2.y);
+        var transformedMove2 = Camera.main.transform.TransformDirection(moveRet2);
+        transformedMove2.y = 0;
 
-            var moveRet = new Vector3(move.x, 0, move.y);
-            var transformedMove = inputManager2.playerCamera.transform.TransformDirection(moveRet);
-            transformedMove.y = 0;
-            
-            var aceleration = transformedMove * goalVelocity - rb.velocity;
-            aceleration = Vector3.ClampMagnitude(aceleration, maxAccel);
-            force = rb.mass * (aceleration / Time.fixedDeltaTime);
-            force.y = 0;
-            playerTurn = false;
-        }
+        //Make combined direction
+        var combinedDir = transformedMove1 + transformedMove2;
+        combinedDir.Normalize();
 
-        
+        Debug.DrawRay(transform.position, combinedDir, Color.red, 3);
+
+        force = combinedDir * (baseStepSpeed + baseStepSpeed * stepCounter);
+        force.y = 0;
         rb.AddForce(force);
+
+        stepCounter++;
+        stepCounter = Mathf.Clamp(stepCounter, 0, maxStepCountBonus);
+        stepDirection = !stepDirection;
     }
+
 
     private void Float()
     {
-        if (!isFloatGrounded || isJumping) return;
+        if (!isFloatGrounded) return;
 
         Vector3 outsideVel = Vector3.zero;
 

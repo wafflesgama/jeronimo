@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmallPlayerAnimController : MonoBehaviour
+public class BigPlayerAnimationController : MonoBehaviour
 {
     private Quaternion direction;
-    public SmallPlayerMovController movController;
+    public BigPlayerMovController movController;
 
     Animator animator;
 
-    UEventHandler eventHandler= new UEventHandler();
+    UEventHandler eventHandler = new UEventHandler();
 
     public float rotationSpeed = 5;
     private void Awake()
@@ -18,19 +18,19 @@ public class SmallPlayerAnimController : MonoBehaviour
     }
     void Start()
     {
-        movController.OnJump.Subscribe(eventHandler, Jump);
-        movController.OnLand.Subscribe(eventHandler, Land);
+        //movController.OnJump.Subscribe(eventHandler, Jump);
+        //movController.OnLand.Subscribe(eventHandler, Land);
     }
 
     private void OnDestroy()
     {
-         eventHandler.UnsubcribeAll();
+        eventHandler.UnsubcribeAll();
     }
 
     // Update is called once per frame
     void Update()
     {
-        animator.SetBool("Sprint", movController.isSprinting);
+        //animator.SetBool("Sprint", movController.isSprinting);
 
         var vel = movController.rb.velocity;
         vel.y = 0;
@@ -63,6 +63,4 @@ public class SmallPlayerAnimController : MonoBehaviour
     {
         return this.direction;
     }
-
-
 }

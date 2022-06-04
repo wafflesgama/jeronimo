@@ -5,8 +5,7 @@ using DG.Tweening;
 
 public class BigPlayerDirectionDisplayer : MonoBehaviour
 {
-    public PlayerInputManager player1Input;
-    public PlayerInputManager player2Input;
+    public MergeBehaviour mergeBehaviour;
 
     public Transform player1Direction;
     public Transform player2Direction;
@@ -21,8 +20,6 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
     public float arrowGrowSpeed = .5f;
     public float arrowGrowFactor = 2f;
     public Ease arrowShrinkEase = Ease.OutElastic;
-
-    public float dotProduct;
 
 
     bool bigArrowShowing;
@@ -39,22 +36,14 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var move1 = player1Input.input_move.value;
-        var moveRet1 = new Vector3(move1.x, 0, move1.y);
-        var transformedMov1 = player1Input.playerCamera.transform.TransformDirection(moveRet1);
-        transformedMov1.y = 0;
 
-        var move2 = player2Input.input_move.value;
-        var moveRet2 = new Vector3(move2.x, 0, move2.y);
-        var transformedMov2 = player2Input.playerCamera.transform.TransformDirection(moveRet2);
-        transformedMov2.y = 0;
 
-        player1Direction.forward = Vector3.Slerp(player1Direction.forward, transformedMov1, Time.deltaTime * lerpSpeed);
-        player2Direction.forward = Vector3.Slerp(player2Direction.forward, transformedMov2, Time.deltaTime * lerpSpeed);
+        player1Direction.forward = Vector3.Slerp(player1Direction.forward, mergeBehaviour.player1Dir, Time.deltaTime * lerpSpeed);
+        player2Direction.forward = Vector3.Slerp(player2Direction.forward, mergeBehaviour.player2Dir, Time.deltaTime * lerpSpeed);
 
-        var dot = Vector3.Dot(player1Direction.forward, player2Direction.forward);
-        dotProduct = dot;
-        if (dot > minMergeIconThres && !bigArrowShowing)
+
+
+        if (mergeBehaviour.player1Dir != Vector3.zero && mergeBehaviour.player2Dir != Vector3.zero && mergeBehaviour.dot > minMergeIconThres && !bigArrowShowing)
         {
             player2Arrow.enabled = false;
             player1Arrow.color = Color.white;
@@ -62,7 +51,7 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
             bigArrowShowing = true;
             player1Arrow.transform.DOScale(initArrowScale * arrowGrowFactor, arrowGrowSpeed).SetEase(arrowGrowEase);
         }
-        else if (dot <= minMergeIconThres && bigArrowShowing)
+        else if ((mergeBehaviour.player1Dir == Vector3.zero || mergeBehaviour.player2Dir == Vector3.zero || mergeBehaviour.dot <= minMergeIconThres) && bigArrowShowing)
         {
             player2Arrow.enabled = true;
             player1Arrow.DOColor(initArrowColor, arrowGrowSpeed).SetEase(arrowShrinkEase);
@@ -70,10 +59,11 @@ public class BigPlayerDirectionDisplayer : MonoBehaviour
             bigArrowShowing = false;
         }
 
+        player1Arrow.enabled = mergeBehaviour.player1Dir != Vector3.zero;
+
+        if (!bigArrowShowing)
+            player2Arrow.enabled = mergeBehaviour.player2Dir != Vector3.zero;
     }
 
-    public float getDotProduct()
-    {
-        return dotProduct;
-    }
+
 }

@@ -31473,7 +31473,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4896
+  m_Name: pb_Mesh-30866
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -32732,7 +32732,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-4908
+  m_Name: pb_Mesh-30878
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -48229,9 +48229,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4795273365575994059, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
+      propertyPath: sneakVelocity
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4795273366095531663, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4795273366749548835, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
+      propertyPath: sneakVelocity
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8920749698992454979, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: uiManager

@@ -11,7 +11,7 @@ public class SmallPlayerVFXManager : MonoBehaviour
     public int dustRate;
     public AnimationCurve dustCurve;
     int dustRateVar, dustJumpVar, dustLandVar;
-    bool jumpFlag=true;
+    bool jumpFlag = true;
 
     UEventHandler eventHandler = new UEventHandler();
 
@@ -47,10 +47,16 @@ public class SmallPlayerVFXManager : MonoBehaviour
     }
     private void LateUpdate()
     {
+        AnimateDust();
+    }
+
+    void AnimateDust()
+    {
+        //if (!mov.isSprinting) return;
+        var sprintFactor = mov.isSprinting ? 1 : 0;
         var speedFraction = mov.horizontalVelMag / mov.goalVelocity;
-        float dustAmount =dustCurve.Evaluate(speedFraction) * dustRate;
+        float dustAmount = dustCurve.Evaluate(speedFraction) * dustRate * sprintFactor;
         dustAmount = mov.isGrounded ? dustAmount : 0;
         dustVfx.SetFloat(dustRateVar, dustAmount);
     }
 }
-    

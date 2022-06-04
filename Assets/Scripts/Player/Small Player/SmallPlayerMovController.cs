@@ -15,12 +15,12 @@ public class SmallPlayerMovController : MonoBehaviour
     public float castDist = 1f;
     public PlayerInputManager inputManager;
     public float goalVelocity;
+    public float sneakVelocity;
 
     public float jumpForce;
     public int jumpFrames = 200;
     public int jumpStartCheckFrames = 200;
     public UEvent OnJump = new UEvent();
-
     public float jumpDownForce = 2f;
 
     public UEvent OnLand = new UEvent();
@@ -31,6 +31,7 @@ public class SmallPlayerMovController : MonoBehaviour
 
     public bool isFloatGrounded { get; private set; }
     public bool isGrounded { get; private set; }
+    public bool isSprinting { get; private set; }
 
     bool isJumping;
     int jumpCounter;
@@ -38,7 +39,8 @@ public class SmallPlayerMovController : MonoBehaviour
 
     bool isLanding;
 
-    Rigidbody rb;
+
+    public Rigidbody rb { get; private set; }
     RaycastHit groundHit;
 
     UEventHandler eventHandler = new UEventHandler();
@@ -50,6 +52,12 @@ public class SmallPlayerMovController : MonoBehaviour
     void Start()
     {
         inputManager.input_jump.Onpressed.Subscribe(eventHandler, () => jumpCounter = jumpFrames);
+        inputManager.input_sprint.Onpressed.Subscribe(eventHandler, () => isSprinting = true);
+        inputManager.input_sprint.Onreleased.Subscribe(eventHandler, () => isSprinting = false);
+    }
+    private void OnDestroy()
+    {
+        eventHandler.UnsubcribeAll();
     }
 
 
@@ -86,7 +94,9 @@ public class SmallPlayerMovController : MonoBehaviour
         var transformedMove = inputManager.playerCamera.transform.TransformDirection(moveRet);
         transformedMove.y = 0;
 
-        var aceleration = transformedMove * goalVelocity - rb.velocity;
+        //var velocity = goalVelocity;
+        var velocity = isSprinting ? goalVelocity : sneakVelocity;
+        var aceleration = transformedMove * velocity - rb.velocity;
         aceleration = Vector3.ClampMagnitude(aceleration, maxAccel);
 
         var force = rb.mass * (aceleration / Time.fixedDeltaTime);
