@@ -8,6 +8,7 @@ enum EnemyState
 {
     IDLE,
     PATROLLING,
+    SUSPICIOUS,
     FOLLOWING,
     SEARCHING
 }
@@ -41,7 +42,7 @@ public class EnemyMovController : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(patrolPoints[currentDestination].position);
-        resetIdleTimer();
+        ResetIdleTimer();
     }
 
     // Update is called once per frame
@@ -73,10 +74,13 @@ public class EnemyMovController : MonoBehaviour
                     else
                     {
                         agent.SetDestination(selectedPosition);
-                        hasSelectedNextPos=false;
+                        hasSelectedNextPos = false;
                         currentState = EnemyState.PATROLLING;
                     }
                 }
+                break;
+            case EnemyState.SUSPICIOUS:
+                animator.SetFloat("Speed", 0);
                 break;
             case EnemyState.PATROLLING:
                 animator.SetFloat("Speed", 1);
@@ -88,20 +92,20 @@ public class EnemyMovController : MonoBehaviour
                 }
                 else
                 {
-                    
+
                     if (!agent.pathPending && agent.remainingDistance < 0.5f)
                     {
                         currentState = EnemyState.IDLE;
-                        resetIdleTimer();
+                        ResetIdleTimer();
                     }
-                        
+
                 }
                 break;
             case EnemyState.FOLLOWING:
                 animator.SetFloat("Speed", 2f);
                 if (playerDetected)
                 {
-                    
+
                     agent.SetDestination(players[closestPlayer].transform.position);
                     currentState = EnemyState.FOLLOWING;
                 }
@@ -125,7 +129,7 @@ public class EnemyMovController : MonoBehaviour
                     if (!selectedLastKnownLocation)
                     {
                         Debug.Log("LAST KNOWN LOCATION");
-                        selectedLastKnownLocation=true;
+                        selectedLastKnownLocation = true;
                         agent.SetDestination(players[closestPlayer].transform.position);
                     }
 
@@ -136,20 +140,20 @@ public class EnemyMovController : MonoBehaviour
                 }
                 break;
         }
-            
+
     }
 
     private Vector3 selectNextPatrolPoint()
     {
         Vector3 nextPos;
 
-        if(currentDestination == patrolPoints.Length - 1)
+        if (currentDestination == patrolPoints.Length - 1)
         {
-           currentDestination = 0;
+            currentDestination = 0;
         }
         else
         {
-          currentDestination++;
+            currentDestination++;
         }
 
         nextPos = patrolPoints[currentDestination].position;
@@ -163,7 +167,7 @@ public class EnemyMovController : MonoBehaviour
         int counter = 0;
         float closestDistance = Vector3.Distance(transform.position, players[0].transform.position);
 
-        for(int i = 0; i < players.Length; i++)
+        for (int i = 0; i < players.Length; i++)
         {
             float temp = Vector3.Distance(transform.position, players[i].transform.position);
 
@@ -172,18 +176,40 @@ public class EnemyMovController : MonoBehaviour
                 closestDistance = temp;
                 counter = i;
             }
-               
+
         }
 
         return counter;
     }
 
-    public void setEnemyDetected(bool detection)
+    public void SetEnemyDetected(bool detection)
     {
+
+        if (detection)
+        {
+            animator.SetTrigger("Chase");
+            agent.isStopped = false;
+        }
+        else
+            animator.SetTrigger("Stop Chase");
+
         playerDetected = detection;
     }
 
-    private void resetIdleTimer()
+    public void SetEnemySuspicious(bool sus)
+    {
+        if (sus)
+            animator.SetTrigger("Sus");
+        else
+            animator.SetTrigger("Stop Sus");
+
+        agent.isStopped = sus;
+        currentState = sus ? EnemyState.IDLE : EnemyState.PATROLLING;
+
+    }
+
+
+    private void ResetIdleTimer()
     {
         idleTimer = defaultIdleTimer;
     }

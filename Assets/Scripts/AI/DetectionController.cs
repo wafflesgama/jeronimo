@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 
 enum DetectionStatus
 {
     NOTDETECTED,
+    SUSPICIOUS,
     DETECTED
 }
 
@@ -18,34 +19,58 @@ public class DetectionController : MonoBehaviour
     public LayerMask targetMask;
     public LayerMask obstacleMask;
 
+    public EnemyMovController m_Controller;
+
+    [Header("Visualization")]
+    public SpriteRenderer detectionMeter;
+    public float lerpSpeed = 20;
+    public float showMeterSpeed;
+    public Ease showMeterEase;
+    public Ease hideMeterEase;
+    private float initMeterScale;
+
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
 
-    private EnemyMovController m_Controller;
 
     private DetectionStatus m_Status = DetectionStatus.NOTDETECTED;
-    private SpriteRenderer detectionMeter;
     public float DetectionDecayValue = -10f;
     public float DetectionIncreaseValue = 20f;
     public float DetectionMaxValue = 100f;
     private float DetectionValue = 0f;
-    
 
+
+    private float detectedPercent;
+    private int shader_ValueParam;
+
+
+    private void Awake()
+    {
+        //m_Controller = GetComponent<EnemyMovController>();
+        //detectionMeter = GetComponentInChildren<SpriteRenderer>();
+        //detectionMeter.material.shader = Shader.Find("Shader Graphs/QuestionMark");
+        shader_ValueParam = Shader.PropertyToID("_Value");
+        initMeterScale = detectionMeter.transform.localScale.x;
+        detectionMeter.transform.localScale = Vector3.zero;
+    }
     private void Start()
     {
-        m_Controller = GetComponent<EnemyMovController>();
-        detectionMeter = GetComponentInChildren<SpriteRenderer>();
-        detectionMeter.material.shader = Shader.Find("Shader Graphs/QuestionMark");
-        StartCoroutine("FindTargets",0.2f);   
+
+        StartCoroutine("FindTargets", 0.2f);
     }
 
+    private void Update()
+    {
+        var oldVal = detectionMeter.material.GetFloat(shader_ValueParam);
+        detectionMeter.material.SetFloat(shader_ValueParam, Mathf.Lerp(oldVal, detectedPercent, Time.deltaTime * lerpSpeed));
+    }
     private IEnumerator FindTargets(float delay)
     {
         while (true)
         {
             yield return new WaitForSeconds(delay);
             FindVisibleTargets();
-            updateDetectionStatus();
+            UpdateDetectionStatus();
         }
     }
 
@@ -71,25 +96,47 @@ public class DetectionController : MonoBehaviour
         }
     }
 
-    void updateDetectionStatus()
+    void UpdateDetectionStatus()
     {
-        if(m_Status == DetectionStatus.NOTDETECTED)
+        if (m_Status == DetectionStatus.NOTDETECTED || m_Status == DetectionStatus.SUSPICIOUS)
         {
             if (visibleTargets.Count != 0)
             {
                 DetectionValue = Mathf.Clamp(DetectionValue + DetectionIncreaseValue, 0f, 100f);
-                detectionMeter.material.SetFloat("_Value", DetectionValue/100);
+                detectedPercent = DetectionValue / 100;
+
 
                 if (DetectionValue == 100)
                 {
                     m_Status = DetectionStatus.DETECTED;
-                    m_Controller.setEnemyDetected(true);
+                    m_Controller.SetEnemyDetected(true);
                 }
             }
             else
             {
                 DetectionValue = Mathf.Clamp(DetectionValue + DetectionDecayValue, 0f, 100f);
-                detectionMeter.material.SetFloat("_Value", DetectionValue / 100);
+                detectedPercent = DetectionValue / 100;
+            }
+
+            if (m_Status == DetectionStatus.NOTDETECTED)
+            {
+                //IF Started to get Suspicious
+                if (detectedPercent > 0)
+                {
+                    m_Status = DetectionStatus.SUSPICIOUS;
+                    m_Controller.SetEnemySuspicious(true);  
+                    detectionMeter.transform.DOScale(initMeterScale, showMeterSpeed).SetEase(showMeterEase);
+                }
+            }
+            else
+            {
+                //If lost suspicion
+                if (detectedPercent <= 0)
+                {
+                    m_Status = DetectionStatus.NOTDETECTED;
+                    m_Controller.SetEnemySuspicious(false);
+                    detectionMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
+                }
             }
         }
         else
@@ -97,12 +144,13 @@ public class DetectionController : MonoBehaviour
             if (visibleTargets.Count == 0)
             {
                 DetectionValue = Mathf.Clamp(DetectionValue + DetectionDecayValue, 0f, 100f);
-                detectionMeter.material.SetFloat("_Value", DetectionValue / 100);
+                detectedPercent = DetectionValue / 100;
 
                 if (DetectionValue == 0)
                 {
                     m_Status = DetectionStatus.NOTDETECTED;
-                    m_Controller.setEnemyDetected(false);
+                    m_Controller.SetEnemyDetected(false);
+                    detectionMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
                 }
             }
         }
@@ -110,7 +158,7 @@ public class DetectionController : MonoBehaviour
 
     public Vector3 DirFromAngle(float angle, bool isGlobal)
     {
-        if(!isGlobal)
+        if (!isGlobal)
             angle += transform.eulerAngles.y;
 
         return new Vector3(Mathf.Sin(angle * Mathf.Deg2Rad), 0, Mathf.Cos(angle * Mathf.Deg2Rad));

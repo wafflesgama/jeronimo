@@ -873,6 +873,10 @@ PrefabInstance:
       propertyPath: inputManager2
       value: 
       objectReference: {fileID: 8920749698725426152}
+    - target: {fileID: 3141111595514185073, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
+      propertyPath: secondsToResetStep
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 9169274154014496968, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
       propertyPath: m_RootOrder
       value: 2
