@@ -23,11 +23,16 @@ public class DetectionController : MonoBehaviour
 
     [Header("Visualization")]
     public SpriteRenderer detectionMeter;
+    public SpriteRenderer detectedMeter;
     public float lerpSpeed = 20;
     public float showMeterSpeed;
     public Ease showMeterEase;
     public Ease hideMeterEase;
+    public float showdetMeterSpeed;
+    public float detectedShakeDuration = 0.9f;
+    public float detectedShakeIntensity = 1f;
     private float initMeterScale;
+    private float initdetMeterScale;
 
     [HideInInspector]
     public List<Transform> visibleTargets = new List<Transform>();
@@ -46,12 +51,13 @@ public class DetectionController : MonoBehaviour
 
     private void Awake()
     {
-        //m_Controller = GetComponent<EnemyMovController>();
-        //detectionMeter = GetComponentInChildren<SpriteRenderer>();
-        //detectionMeter.material.shader = Shader.Find("Shader Graphs/QuestionMark");
         shader_ValueParam = Shader.PropertyToID("_Value");
+
         initMeterScale = detectionMeter.transform.localScale.x;
         detectionMeter.transform.localScale = Vector3.zero;
+
+        initdetMeterScale = detectedMeter.transform.localScale.x;
+        detectedMeter.transform.localScale = Vector3.zero;
     }
     private void Start()
     {
@@ -62,7 +68,9 @@ public class DetectionController : MonoBehaviour
     private void Update()
     {
         var oldVal = detectionMeter.material.GetFloat(shader_ValueParam);
-        detectionMeter.material.SetFloat(shader_ValueParam, Mathf.Lerp(oldVal, detectedPercent, Time.deltaTime * lerpSpeed));
+        var lerpVal = Mathf.Lerp(oldVal, detectedPercent, Time.deltaTime * lerpSpeed);
+        detectionMeter.material.SetFloat(shader_ValueParam, lerpVal);
+        detectedMeter.material.SetFloat(shader_ValueParam, lerpVal);
     }
     private IEnumerator FindTargets(float delay)
     {
@@ -109,6 +117,11 @@ public class DetectionController : MonoBehaviour
                 if (DetectionValue == 100)
                 {
                     m_Status = DetectionStatus.DETECTED;
+
+                    detectionMeter.enabled = false;
+                    detectedMeter.enabled = true;
+                    detectedMeter.transform.DOScale(initdetMeterScale, showdetMeterSpeed).SetEase(showMeterEase);
+                    detectedMeter.transform.DOShakePosition(detectedShakeDuration, detectedShakeIntensity);
                     m_Controller.SetEnemyDetected(true);
                 }
             }
@@ -124,7 +137,10 @@ public class DetectionController : MonoBehaviour
                 if (detectedPercent > 0)
                 {
                     m_Status = DetectionStatus.SUSPICIOUS;
-                    m_Controller.SetEnemySuspicious(true);  
+
+                    detectionMeter.enabled = true;
+                    detectedMeter.enabled = false;
+                    m_Controller.SetEnemySuspicious(true);
                     detectionMeter.transform.DOScale(initMeterScale, showMeterSpeed).SetEase(showMeterEase);
                 }
             }
@@ -150,7 +166,8 @@ public class DetectionController : MonoBehaviour
                 {
                     m_Status = DetectionStatus.NOTDETECTED;
                     m_Controller.SetEnemyDetected(false);
-                    detectionMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
+
+                    detectedMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
                 }
             }
         }

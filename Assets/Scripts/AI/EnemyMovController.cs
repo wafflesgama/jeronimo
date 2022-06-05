@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -19,8 +20,16 @@ public class EnemyMovController : MonoBehaviour
     public float defaultIdleTimer = 3f;
     private float idleTimer;
 
-    private int currentDestination = 0;
+    [Header("Patrol")]
     public Transform[] patrolPoints;
+    private int currentDestination = 0;
+
+    [Header("Animations")]
+    public Animator animator;
+
+    [Header("Chase")]
+    public float chaseSpeedFactor = 1.5f;
+
     private Vector3 selectedPosition;
     private NavMeshAgent agent;
     private EnemyState currentState = EnemyState.PATROLLING;
@@ -32,7 +41,8 @@ public class EnemyMovController : MonoBehaviour
     private int closestPlayer;
     private GameObject[] players;
 
-    public Animator animator;
+
+    private float baseSpeed;
 
 
 
@@ -42,10 +52,11 @@ public class EnemyMovController : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(patrolPoints[currentDestination].position);
+        baseSpeed = agent.speed;
+
         ResetIdleTimer();
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -182,18 +193,26 @@ public class EnemyMovController : MonoBehaviour
         return counter;
     }
 
-    public void SetEnemyDetected(bool detection)
+    public async void SetEnemyDetected(bool detection)
     {
+        playerDetected = detection;
 
         if (detection)
         {
             animator.SetTrigger("Chase");
+            agent.speed = baseSpeed * chaseSpeedFactor;
             agent.isStopped = false;
         }
         else
+        {
             animator.SetTrigger("Stop Chase");
+            agent.speed = baseSpeed;
+            agent.isStopped = true;
+            await Task.Delay(3000);
+            agent.isStopped = false;
+            animator.SetTrigger("Stop Sus");
+        }
 
-        playerDetected = detection;
     }
 
     public void SetEnemySuspicious(bool sus)
