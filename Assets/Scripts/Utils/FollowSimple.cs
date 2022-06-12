@@ -30,12 +30,13 @@ public class FollowSimple : MonoBehaviour
     Vector3 offset;
     void Awake()
     {
-        offset = offsetEnabled ? transform.position - followTarget.position : Vector3.zero;
+        if (followTarget != null)
+            offset = offsetEnabled ? transform.position - followTarget.position : Vector3.zero;
     }
 
     private void LateUpdate()
     {
-        if (followMode != FollowMode.LateUpdate) return;
+        if (followMode != FollowMode.LateUpdate || followTarget ==null) return;
         TimeCalc();
         FollowPosition();
         FollowRotation();
@@ -44,7 +45,7 @@ public class FollowSimple : MonoBehaviour
 
     public void Update()
     {
-        if (followMode != FollowMode.Update) return;
+        if (followMode != FollowMode.Update || followTarget == null) return;
         TimeCalc();
         FollowPosition();
         FollowRotation();
@@ -53,12 +54,17 @@ public class FollowSimple : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (followMode != FollowMode.FixedUpdate) return;
+        if (followMode != FollowMode.FixedUpdate || followTarget == null) return;
         TimeCalc();
         FollowPosition();
         FollowRotation();
     }
 
+    public void SetFollowOffset(Vector3 newOffset)
+    {
+        offsetEnabled = true;
+        offset = newOffset;
+    }
     private void TimeCalc()
     {
         timeDif = followMode switch { FollowMode.FixedUpdate => Time.fixedDeltaTime, _ => Time.deltaTime };
@@ -81,11 +87,11 @@ public class FollowSimple : MonoBehaviour
     {
         if (!followPosition) return;
 
-        Vector3 dir= transform.position - followTarget.position;
+        Vector3 dir = transform.position - followTarget.position;
         dir.Normalize();
 
         //Vector3 finalPos = offsetEnabled && followRotation ? followTarget.position + (followTarget.rotation * offset) : followTarget.position;
-        Vector3 finalPos =  followTarget.position;
+        Vector3 finalPos = followTarget.position;
 
         if (offsetEnabled)
             finalPos += offset;

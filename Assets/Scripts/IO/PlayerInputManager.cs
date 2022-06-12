@@ -51,16 +51,10 @@ public class PlayerInputManager : MonoBehaviour
     // public BufferedButton input_bufferedJump = new BufferedButton { bufferTime = 2 };
     public Button<Vector2> input_move = new Button<Vector2>();
     public Button<Vector2> input_look = new Button<Vector2>();
-    public Button<float> input_fire = new Button<float>();
-    public Button<float> input_fireAlt = new Button<float>();
     public Button<float> input_jump = new Button<float>();
     public Button<float> input_sprint = new Button<float>();
     public Button<float> input_pause = new Button<float>();
-    public Button<float> input_crouch = new Button<float>();
     public Button<float> input_interact = new Button<float>();
-    public Button<float> input_weapon1 = new Button<float>();
-    public Button<float> input_weapon2 = new Button<float>();
-    public Button<float> input_weapon3 = new Button<float>();
 
     #region Button Base stuff
     //public delegate void ClickAction();
@@ -107,16 +101,10 @@ public class PlayerInputManager : MonoBehaviour
 
     private void OnMove(InputValue inputValue) => SetInputInfo(input_move, inputValue);
     private void OnLook(InputValue inputValue) => SetInputInfo(input_look, inputValue);
-    private void OnFire(InputValue inputValue) => SetInputInfo(input_fire, inputValue);
-    private void OnFireAlt(InputValue inputValue) => SetInputInfo(input_fireAlt, inputValue);
     private void OnJump(InputValue inputValue) => SetInputInfo(input_jump, inputValue);
     private void OnSprint(InputValue inputValue) => SetInputInfo(input_sprint, inputValue);
     private void OnPause(InputValue inputValue) => SetInputInfo(input_pause, inputValue);
-    private void OnCrouch(InputValue inputValue) => SetInputInfo(input_crouch, inputValue);
     private void OnInteract(InputValue inputValue) => SetInputInfo(input_interact, inputValue);
-    private void OnWeapon1(InputValue inputValue) => SetInputInfo(input_weapon1, inputValue);
-    private void OnWeapon2(InputValue inputValue) => SetInputInfo(input_weapon2, inputValue);
-    private void OnWeapon3(InputValue inputValue) => SetInputInfo(input_weapon3, inputValue);
 
 
     #region Info Setters

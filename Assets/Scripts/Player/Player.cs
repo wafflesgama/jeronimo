@@ -28,6 +28,11 @@ public class Player : MonoBehaviour
         KnockPlayer(smallVfxManager.transform.position);
     }
 
+
+    public void GrabObject()
+    {
+
+    }
     public void KnockPlayer(Vector3 knockPos)
     {
         if (isKnocked) return;

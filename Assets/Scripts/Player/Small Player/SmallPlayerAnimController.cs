@@ -6,6 +6,7 @@ public class SmallPlayerAnimController : MonoBehaviour
 {
     public Quaternion direction { get; private set; }
     public SmallPlayerMovController movController;
+    public Transform headBone;
 
     Animator animator;
 
