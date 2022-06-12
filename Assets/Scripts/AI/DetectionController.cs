@@ -7,7 +7,7 @@ enum DetectionStatus
 {
     NOTDETECTED,
     SUSPICIOUS,
-    DETECTED
+    DETECTED,
 }
 
 public class DetectionController : MonoBehaviour
@@ -20,6 +20,8 @@ public class DetectionController : MonoBehaviour
     public LayerMask obstacleMask;
 
     public EnemyMovController m_Controller;
+
+    public CatchDetector catchDetector;
 
     [Header("Visualization")]
     public SpriteRenderer detectionMeter;
@@ -48,6 +50,8 @@ public class DetectionController : MonoBehaviour
     private float detectedPercent;
     private int shader_ValueParam;
 
+    UEventHandler eventHandler = new UEventHandler();
+
 
     private void Awake()
     {
@@ -63,6 +67,12 @@ public class DetectionController : MonoBehaviour
     {
 
         StartCoroutine("FindTargets", 0.2f);
+        catchDetector.OnCatch.Subscribe(eventHandler, CatchedPlayer);
+    }
+
+    private void OnDestroy()
+    {
+        eventHandler.UnsubcribeAll();
     }
 
     private void Update()
@@ -96,6 +106,7 @@ public class DetectionController : MonoBehaviour
             {
                 float dstToTarget = Vector3.Distance(transform.position, target.position);
 
+
                 if (!Physics.Raycast(transform.position, dirToTarget, dstToTarget, obstacleMask))
                 {
                     visibleTargets.Add(target);
@@ -116,13 +127,7 @@ public class DetectionController : MonoBehaviour
 
                 if (DetectionValue == 100)
                 {
-                    m_Status = DetectionStatus.DETECTED;
-
-                    detectionMeter.enabled = false;
-                    detectedMeter.enabled = true;
-                    detectedMeter.transform.DOScale(initdetMeterScale, showdetMeterSpeed).SetEase(showMeterEase);
-                    detectedMeter.transform.DOShakePosition(detectedShakeDuration, detectedShakeIntensity);
-                    m_Controller.SetEnemyDetected(true);
+                    TrigerDetection();
                 }
             }
             else
@@ -136,12 +141,7 @@ public class DetectionController : MonoBehaviour
                 //IF Started to get Suspicious
                 if (detectedPercent > 0)
                 {
-                    m_Status = DetectionStatus.SUSPICIOUS;
-
-                    detectionMeter.enabled = true;
-                    detectedMeter.enabled = false;
-                    m_Controller.SetEnemySuspicious(true);
-                    detectionMeter.transform.DOScale(initMeterScale, showMeterSpeed).SetEase(showMeterEase);
+                    TriggerSuspicion();
                 }
             }
             else
@@ -149,9 +149,7 @@ public class DetectionController : MonoBehaviour
                 //If lost suspicion
                 if (detectedPercent <= 0)
                 {
-                    m_Status = DetectionStatus.NOTDETECTED;
-                    m_Controller.SetEnemySuspicious(false);
-                    detectionMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
+                    TriggerNotDetected();
                 }
             }
         }
@@ -164,13 +162,57 @@ public class DetectionController : MonoBehaviour
 
                 if (DetectionValue == 0)
                 {
-                    m_Status = DetectionStatus.NOTDETECTED;
-                    m_Controller.SetEnemyDetected(false);
-
-                    detectedMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
+                    TriggerNotDetected();
                 }
             }
         }
+    }
+
+    private void TrigerDetection()
+    {
+        m_Status = DetectionStatus.DETECTED;
+
+        detectionMeter.enabled = false;
+        detectedMeter.enabled = true;
+        detectedMeter.transform.DOScale(initdetMeterScale, showdetMeterSpeed).SetEase(showMeterEase);
+        detectedMeter.transform.DOShakePosition(detectedShakeDuration, detectedShakeIntensity);
+
+        bool p1 = false, p2 = false;
+        if (visibleTargets.Count >= 2)
+        {
+            p1 = true;
+            p2 = true;
+        }
+        else if (visibleTargets.Count > 0)
+        {
+            p1 = visibleTargets[0].parent.name == PlayerManager.current.player1.name;
+            p2 = visibleTargets[0].parent.name == PlayerManager.current.player2.name;
+        }
+        m_Controller.SetEnemyDetected(true, p1, p2);
+    }
+
+    private void TriggerSuspicion()
+    {
+        m_Status = DetectionStatus.SUSPICIOUS;
+
+        detectionMeter.enabled = true;
+        detectedMeter.enabled = false;
+        m_Controller.SetEnemySuspicious(true);
+        detectionMeter.transform.DOScale(initMeterScale, showMeterSpeed).SetEase(showMeterEase);
+    }
+
+    private void TriggerNotDetected()
+    {
+        m_Status = DetectionStatus.NOTDETECTED;
+        m_Controller.SetEnemySuspicious(false);
+        detectionMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
+    }
+
+    private void CatchedPlayer(Transform playerController, Vector3 catchPosition)
+    {
+
+        PlayerManager.current.KnockPlayers(playerController, catchPosition);
+        TriggerSuspicion();
     }
 
     public Vector3 DirFromAngle(float angle, bool isGlobal)

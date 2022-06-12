@@ -21135,14 +21135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    - target: {fileID: 8851939826453008156, guid: b6e0e4b1308a9f94e8c0ed072c94a6a9, type: 3}
-      propertyPath: chaseSpeedFactor
-      value: 2.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8851939826453008159, guid: b6e0e4b1308a9f94e8c0ed072c94a6a9, type: 3}
-      propertyPath: m_Acceleration
-      value: 17
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6e0e4b1308a9f94e8c0ed072c94a6a9, type: 3}
 --- !u!43 &771411348

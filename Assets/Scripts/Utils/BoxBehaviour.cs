@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BoxBehaviour : MonoBehaviour
 {
+    public Player player;
+
     [SerializeField]
     private Transform m_GrabPoint;
 
@@ -17,20 +19,19 @@ public class BoxBehaviour : MonoBehaviour
     private int m_layerIndex;
     private bool grabbed = false;
     GameObject item;
-    private GameObject playerAnimator;
+
 
 
 
     private void Awake()
     {
-        playerAnimator = this.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Quaternion direction = playerAnimator.GetComponent<SmallPlayerAnimController>().getDirection();
-        Debug.Log(direction);
+        Quaternion direction = player.smallAnimController.direction;
+        //Debug.Log(direction);
         Vector3 playerPos = this.transform.position;
         Vector3 playerDirection = this.transform.forward;
         float spawnDistance = 2;
@@ -41,7 +42,7 @@ public class BoxBehaviour : MonoBehaviour
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(this.transform.position, this.transform.forward , out hit, 5))
+            if (Physics.Raycast(this.transform.position, this.transform.forward, out hit, 5))
             {
 
                 if (hit.collider.tag == "Boxes")
@@ -55,9 +56,9 @@ public class BoxBehaviour : MonoBehaviour
                 }
             }
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            if(grabbed==true)
+            if (grabbed == true)
             {
                 grabbed = false;
             }

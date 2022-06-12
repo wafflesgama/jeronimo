@@ -6,18 +6,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerManager : MonoBehaviour
 {
-    public PlayerInputManager player1Input;
-    public PlayerInputManager player2Input;
+    public static PlayerManager current;
 
-    //public UnityEngine.InputSystem.PlayerInputManager inputManager;
+    public Player player1;
+    public Player player2;
 
-    public LevelUiManager uiManager;
-
+    MergeBehaviour mergeBehaviour;
     InputDevice[] devices;
 
-    public bool isSelectingPlayers;
     private void Awake()
     {
+        current = this;
+
+        mergeBehaviour = GetComponent<MergeBehaviour>();
     }
     void Start()
     {
@@ -25,18 +26,18 @@ public class PlayerManager : MonoBehaviour
 
     public void RefreshDevices()
     {
-        uiManager.ClearDevices();
+        LevelUiManager.current.ClearDevices();
 
-        var player1Device = player1Input.GetMainInput();
+        var player1Device = player1.inputManager.GetMainInput();
 
 
-        var player2Device = player2Input.gameObject.activeSelf ? player2Input.GetMainInput() : null;
+        var player2Device = player2.inputManager.gameObject.activeSelf ? player2.inputManager.GetMainInput() : null;
 
         if (player1Device != null)
-            uiManager.AddPlayerDevice(player1Device.deviceId, player1Device.name != "Keyboard", true);
+            LevelUiManager.current.AddPlayerDevice(player1Device.deviceId, player1Device.name != "Keyboard", true);
 
         if (player2Device != null)
-            uiManager.AddPlayerDevice(player2Device.deviceId, player2Device.name != "Keyboard", false);
+            LevelUiManager.current.AddPlayerDevice(player2Device.deviceId, player2Device.name != "Keyboard", false);
 
 
         devices = InputSystem.devices.ToArray();
@@ -45,29 +46,47 @@ public class PlayerManager : MonoBehaviour
         {
             if (device != player1Device && device != player2Device && device.name != "Mouse" && device.name != "Pen")
             {
-                uiManager.AddAvailableDevice(device.deviceId, device.name != "Keyboard");
+                LevelUiManager.current.AddAvailableDevice(device.deviceId, device.name != "Keyboard");
             }
 
 
         }
-        uiManager.SetDevicesList(devices.Select(x => x.name + ",").ToArray());
+        LevelUiManager.current.SetDevicesList(devices.Select(x => x.name + ",").ToArray());
     }
 
     public void SwitchPlayerInput(int playerIndex, int controllerId)
     {
         if (playerIndex == 1)
         {
-            player1Input.ChangeInputDevice(controllerId);
+            player1.inputManager.ChangeInputDevice(controllerId);
         }
         else
         {
-            player2Input.ChangeInputDevice(controllerId);
+            player2.inputManager.ChangeInputDevice(controllerId);
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void KnockPlayers(Transform playerKnocked, Vector3 knockPos)
     {
+        if (mergeBehaviour.isMerged)
+        {
+            mergeBehaviour.UnmergePlayers();
+            return;
+        }
+
+        if (playerKnocked.parent.name == player1.name)
+            player1.KnockPlayer(knockPos);
+        else
+            player2.KnockPlayer(knockPos);
+
+
+        if (player1.isKnocked && player2.isKnocked)
+        {
+            //Reset Game
+            LevelManager.current.GameOver();
+        }
+
+
 
     }
 }

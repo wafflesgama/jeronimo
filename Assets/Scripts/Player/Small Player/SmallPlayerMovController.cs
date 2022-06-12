@@ -29,6 +29,7 @@ public class SmallPlayerMovController : MonoBehaviour
     public Vector3 horizontalVel;
     public float horizontalVelMag;
 
+    public bool isFrozen { get; private set; }
     public bool isFloatGrounded { get; private set; }
     public bool isGrounded { get; private set; }
     public bool isSprinting { get; private set; }
@@ -87,7 +88,7 @@ public class SmallPlayerMovController : MonoBehaviour
 
     private void Move()
     {
-        if (!isGrounded) return;
+        if (!isGrounded || isFrozen) return;
 
         var move = inputManager.input_move.value;
         var moveRet = new Vector3(move.x, 0, move.y);
@@ -137,7 +138,7 @@ public class SmallPlayerMovController : MonoBehaviour
 
     private void Jump()
     {
-        if (!isFloatGrounded || jumpCounter <= 0 || isJumping) return;
+        if (!isFloatGrounded || jumpCounter <= 0 || isJumping || isFrozen) return;
 
         jumpCounter = 0;
         isJumping = true;
@@ -197,9 +198,9 @@ public class SmallPlayerMovController : MonoBehaviour
         return rb.velocity;
     }
 
-    public bool PlayerIsGrounded()
+    public void FreezePlayer(bool unfreeze=false)
     {
-        CheckGround();
-        return isGrounded;
+        isFrozen = !unfreeze;
+        rb.isKinematic = !unfreeze;
     }
 }

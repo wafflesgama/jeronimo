@@ -24,7 +24,6 @@ public class MergeBehaviour : MonoBehaviour
     public float mergeDot = -0.8f;
 
     public bool isMerged = false;
-    public bool unmerge = false;
 
     public float unmergeTimer = 1f;
 
@@ -64,26 +63,26 @@ public class MergeBehaviour : MonoBehaviour
 
     }
 
-    private void UnmergePlayers()
+    public void UnmergePlayers()
     {
         unmergeTimer = 1f;
         isMerged = false;
         Player1.SetActive(true);
         Player2.SetActive(true);
         BigPlayer.SetActive(false);
-        selectUnmergePositions(BigPlayerPosition.transform.position);
+        SelectUnmergePositions(BigPlayerPosition.transform.position);
         PlayerManager.RefreshDevices();
     }
 
     void LateUpdate()
     {
-        var move1 = PlayerManager.player1Input.input_move.value;
+        var move1 = PlayerManager.player1.inputManager.input_move.value;
         var moveRet1 = new Vector3(move1.x, 0, move1.y);
         player1Dir = Camera.main.transform.TransformDirection(moveRet1);
         player1Dir.y = 0;
         player1Dir.Normalize();
 
-        var move2 = PlayerManager.player2Input.input_move.value;
+        var move2 = PlayerManager.player2.inputManager.input_move.value;
         var moveRet2 = new Vector3(move2.x, 0, move2.y);
         player2Dir = Camera.main.transform.TransformDirection(moveRet2);
         player2Dir.y = 0;
@@ -99,7 +98,6 @@ public class MergeBehaviour : MonoBehaviour
 
             if (dot < mergeDot && unmergeTimer < 0)
             {
-                unmerge = false;
                 UnmergePlayers();
             }
             else if (dot < mergeDot)
@@ -122,7 +120,7 @@ public class MergeBehaviour : MonoBehaviour
         }
     }
 
-    private void selectUnmergePositions(Vector3 playerPos)
+    private void SelectUnmergePositions(Vector3 playerPos)
     {
         float radius = 4f;
 
@@ -132,7 +130,7 @@ public class MergeBehaviour : MonoBehaviour
             Vector3 tempPos = playerPos + (Vector3)(radius * Random.insideUnitCircle);
 
             Player1Position.position = tempPos;
-            if (Player1Controller.PlayerIsGrounded())
+            if (Player1Controller.isGrounded)
             {
                 break;
             }
@@ -144,7 +142,7 @@ public class MergeBehaviour : MonoBehaviour
             Vector3 tempPos = playerPos + (Vector3)(radius * Random.insideUnitCircle);
 
             Player2Position.position = tempPos;
-            if (Player2Controller.PlayerIsGrounded() && Vector3.Distance(tempPos, Player1Position.position) >= 1.5f)
+            if (Player2Controller.isGrounded && Vector3.Distance(tempPos, Player1Position.position) >= 1.5f)
             {
                 break;
             }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SmallPlayerAnimController : MonoBehaviour
 {
-    private Quaternion direction;
+    public Quaternion direction { get; private set; }
     public SmallPlayerMovController movController;
 
     Animator animator;
 
-    UEventHandler eventHandler= new UEventHandler();
+    UEventHandler eventHandler = new UEventHandler();
 
     public float rotationSpeed = 5;
     private void Awake()
@@ -24,7 +24,7 @@ public class SmallPlayerAnimController : MonoBehaviour
 
     private void OnDestroy()
     {
-         eventHandler.UnsubcribeAll();
+        eventHandler.UnsubcribeAll();
     }
 
     // Update is called once per frame
@@ -59,10 +59,14 @@ public class SmallPlayerAnimController : MonoBehaviour
         animator.SetTrigger("Land");
     }
 
-    public Quaternion getDirection()
+    public void Knock()
     {
-        return this.direction;
+        animator.SetTrigger("Knock");
     }
 
+    public void Recover()
+    {
+        animator.SetTrigger("Recover");
+    }
 
 }

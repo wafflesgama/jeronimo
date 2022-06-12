@@ -1,24 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
-    public static Player Player1;
-    public static Player Player2;
-
+    public PlayerInputManager inputManager;
     public SmallPlayerMovController smallMovController;
     public SmallPlayerAnimController smallAnimController;
+    public SmallPlayerVFXManager smallVfxManager;
 
+
+    public bool isKnocked { get; private set; }
 
     private void Awake()
     {
-        if (Player1 == null)
-            Player1 = this;
-        else
-            Player2 = this;
-
 
     }
     void Start()
@@ -26,9 +22,38 @@ public class Player : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    [ContextMenu("Knock")]
+    public void KnockTest()
     {
+        KnockPlayer(smallVfxManager.transform.position);
+    }
+
+    public void KnockPlayer(Vector3 knockPos)
+    {
+        if (isKnocked) return;
+
+        isKnocked = true;
+
+        smallMovController.gameObject.layer = 7;  //KnockedPlayer Layer
+        smallMovController.FreezePlayer();
+        smallAnimController.Knock();
+        smallVfxManager.Knock(knockPos);
 
     }
+
+    [ContextMenu("Recover")]
+    public void RecoverPlayer()
+    {
+        if (!isKnocked) return;
+
+        isKnocked = false;
+
+        smallMovController.gameObject.layer = 6;  //Player Layer
+        smallMovController.FreezePlayer(unfreeze: true);
+        smallAnimController.Recover();
+        smallVfxManager.Recover();
+    }
+
+
+
 }

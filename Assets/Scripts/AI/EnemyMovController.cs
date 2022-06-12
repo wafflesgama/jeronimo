@@ -38,9 +38,8 @@ public class EnemyMovController : MonoBehaviour
 
     private bool playerDetected = false;
     private bool selectedLastKnownLocation = false;
-    private int closestPlayer;
-    private GameObject[] players;
 
+    private Transform playerToChase;
 
     private float baseSpeed;
 
@@ -48,8 +47,6 @@ public class EnemyMovController : MonoBehaviour
 
     void Awake()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
-
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(patrolPoints[currentDestination].position);
         baseSpeed = agent.speed;
@@ -66,15 +63,15 @@ public class EnemyMovController : MonoBehaviour
                 animator.SetFloat("Speed", 0);
                 if (playerDetected)
                 {
-                    closestPlayer = findClosestPlayer();
-                    agent.SetDestination(players[closestPlayer].transform.position);
+
+                    agent.SetDestination(playerToChase.position);
                     currentState = EnemyState.FOLLOWING;
                 }
                 else
                 {
                     if (!hasSelectedNextPos)
                     {
-                        selectedPosition = selectNextPatrolPoint();
+                        selectedPosition = SelectNextPatrolPoint();
                         hasSelectedNextPos = true;
                     }
 
@@ -97,8 +94,8 @@ public class EnemyMovController : MonoBehaviour
                 animator.SetFloat("Speed", 1);
                 if (playerDetected)
                 {
-                    closestPlayer = findClosestPlayer();
-                    agent.SetDestination(players[closestPlayer].transform.position);
+                    playerToChase = FindClosestPlayer();
+                    agent.SetDestination(playerToChase.position);
                     currentState = EnemyState.FOLLOWING;
                 }
                 else
@@ -117,7 +114,7 @@ public class EnemyMovController : MonoBehaviour
                 if (playerDetected)
                 {
 
-                    agent.SetDestination(players[closestPlayer].transform.position);
+                    agent.SetDestination(playerToChase.position);
                     currentState = EnemyState.FOLLOWING;
                 }
                 else
@@ -131,8 +128,8 @@ public class EnemyMovController : MonoBehaviour
                 animator.SetFloat("Speed", 1f);
                 if (playerDetected)
                 {
-                    closestPlayer = findClosestPlayer();
-                    agent.SetDestination(players[closestPlayer].transform.position);
+                    playerToChase = FindClosestPlayer();
+                    agent.SetDestination(playerToChase.position);
                     currentState = EnemyState.FOLLOWING;
                 }
                 else
@@ -141,7 +138,7 @@ public class EnemyMovController : MonoBehaviour
                     {
                         Debug.Log("LAST KNOWN LOCATION");
                         selectedLastKnownLocation = true;
-                        agent.SetDestination(players[closestPlayer].transform.position);
+                        agent.SetDestination(playerToChase.position);
                     }
 
                     if (!agent.pathPending && agent.remainingDistance < 0.5f)
@@ -154,7 +151,7 @@ public class EnemyMovController : MonoBehaviour
 
     }
 
-    private Vector3 selectNextPatrolPoint()
+    private Vector3 SelectNextPatrolPoint()
     {
         Vector3 nextPos;
 
@@ -173,30 +170,29 @@ public class EnemyMovController : MonoBehaviour
     }
 
 
-    public int findClosestPlayer()
+    public Transform FindClosestPlayer()
     {
-        int counter = 0;
-        float closestDistance = Vector3.Distance(transform.position, players[0].transform.position);
+        var p1Distance = Vector3.Distance(transform.position, PlayerManager.current.player1.smallMovController.transform.position);
+        var p2Distance = Vector3.Distance(transform.position, PlayerManager.current.player2.smallMovController.transform.position);
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            float temp = Vector3.Distance(transform.position, players[i].transform.position);
 
-            if (closestDistance > temp)
-            {
-                closestDistance = temp;
-                counter = i;
-            }
+        if (p1Distance <= p2Distance)
+            return PlayerManager.current.player1.smallMovController.transform;
 
-        }
-
-        return counter;
+        return PlayerManager.current.player2.smallMovController.transform;
     }
 
-    public async void SetEnemyDetected(bool detection)
+    public async void SetEnemyDetected(bool detection, bool p1InRange, bool p2InRange)
     {
         playerDetected = detection;
-
+        if (p1InRange && p2InRange)
+        {
+            playerToChase = FindClosestPlayer();
+        }
+        else
+        {
+            playerToChase = p1InRange ? PlayerManager.current.player1.smallMovController.transform : PlayerManager.current.player2.smallMovController.transform;
+        }
         if (detection)
         {
             animator.SetTrigger("Chase");
@@ -220,7 +216,10 @@ public class EnemyMovController : MonoBehaviour
         if (sus)
             animator.SetTrigger("Sus");
         else
+        {
+            playerDetected = false;
             animator.SetTrigger("Stop Sus");
+        }
 
         agent.isStopped = sus;
         currentState = sus ? EnemyState.IDLE : EnemyState.PATROLLING;

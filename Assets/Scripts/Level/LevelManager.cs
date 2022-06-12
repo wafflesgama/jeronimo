@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public PlayerManager playerManager;
+    public static LevelManager current;
 
-    public LevelUiManager uiManager;
-
-    bool paused = false,pauseFreeze;
+    bool paused = false, pauseFreeze;
 
     UEventHandler eventHandler = new UEventHandler();
+
+    private void Awake()
+    {
+        current = this;
+    }
     void Start()
     {
-        playerManager.player1Input.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
-        playerManager.player2Input.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
+        PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
+        PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
     }
 
     private void OnDestroy()
@@ -40,18 +44,25 @@ public class LevelManager : MonoBehaviour
 
         if (paused)
         {
-            uiManager.Pause();
-            playerManager.RefreshDevices();
+            LevelUiManager.current.Pause();
+            PlayerManager.current.RefreshDevices();
             //Time.timeScale = 0;
         }
         else
         {
-            uiManager.Resume();
+            LevelUiManager.current.Resume();
             //Time.timeScale = 1f;
         }
 
         await Task.Delay(150);
         pauseFreeze = false;
 
+    }
+
+    public async void GameOver()
+    {
+        LevelUiManager.current.FadeScreen(false);
+        await Task.Delay(1500);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

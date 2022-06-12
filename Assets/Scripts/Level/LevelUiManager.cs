@@ -6,9 +6,13 @@ using TMPro;
 
 public class LevelUiManager : MonoBehaviour
 {
+    public static LevelUiManager current;
     UEventHandler eventHandler = new UEventHandler();
 
     public CursorManager cursorManager;
+
+    [Header("Fade Screen")]
+    public Animator fader;
 
     [Header("Pause Screen")]
     public CanvasGroup pauseParentGroup;
@@ -28,6 +32,7 @@ public class LevelUiManager : MonoBehaviour
 
     private void Awake()
     {
+        current = this;
         devices = new List<Transform>();
     }
 
@@ -46,6 +51,11 @@ public class LevelUiManager : MonoBehaviour
 
     }
 
+
+    public void FadeScreen(bool fadeIn)
+    {
+        fader.SetBool("FadeIn",fadeIn);
+    }
     public void Resume()
     {
         Debug.Log("Resume");
@@ -81,7 +91,7 @@ public class LevelUiManager : MonoBehaviour
     {
         var device = CreateDevice(id, isController);
         //device.transform.SetParent(devicesArea.transform);
-        devicesArea.OnDrag(device,false);
+        devicesArea.OnDrag(device, false);
     }
 
     public void AddPlayerDevice(int id, bool isController, bool player1)
