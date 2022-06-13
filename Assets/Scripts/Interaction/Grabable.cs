@@ -9,6 +9,9 @@ public class Grabable : MonoBehaviour, Interactable
     public float throwPower = 3;
     public Vector3 displayOffset;
     public Vector3 followOffset;
+
+    public TrailRenderer trailRenderer;
+    public float trailSpedThres=3;
     public Vector3 GetOffset() => displayOffset;
 
     public FollowSimple follower;
@@ -77,6 +80,10 @@ public class Grabable : MonoBehaviour, Interactable
     // Update is called once per frame
     void Update()
     {
+        trailRenderer.enabled = rb.velocity.sqrMagnitude > trailSpedThres;
+        //if (rb.velocity.sqrMagnitude > trailSpedThres)
+        //{
 
+        //}
     }
 }

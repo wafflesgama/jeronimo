@@ -65,4 +65,9 @@ public class LevelManager : MonoBehaviour
         await Task.Delay(1500);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    public void GrabbedCoin()
+    {
+
+    }
 }
