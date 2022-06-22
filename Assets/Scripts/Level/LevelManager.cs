@@ -12,12 +12,15 @@ public class LevelManager : MonoBehaviour
 
     UEventHandler eventHandler = new UEventHandler();
 
+    public static int CoinCont;
+
     private void Awake()
     {
         current = this;
     }
     void Start()
     {
+        CoinCont = 0;
         PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
         PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
     }
@@ -68,6 +71,6 @@ public class LevelManager : MonoBehaviour
 
     public void GrabbedCoin()
     {
-
+        CoinCont++;
     }
 }
