@@ -19,6 +19,7 @@ public class SplitScreen : MonoBehaviour
     public float splitDistance = 5;
     public Vector3 followOffset = new Vector3(0, 6, -5);
     public float followLerp = 10;
+    public float followYLerp = 5;
     public float rotationLerp = 10;
 
     //The color and width of the splitter which splits the two screens up.
@@ -140,14 +141,16 @@ public class SplitScreen : MonoBehaviour
 
             MoveCamera1(midPoint);
         }
-        
+
     }
 
-    private void MoveCamera1(Vector3 midPoint) 
+    private void MoveCamera1(Vector3 midPoint)
     {
         /*Lerps the first cameras position and rotation to that of the second midpoint, so relative to the first player
 		or when both players are in view it lerps the camera to their midpoint.*/
-        camera1.transform.position = Vector3.Lerp(camera1.transform.position, midPoint + followOffset, Time.deltaTime * followLerp);
+        LerpCameraPosition(camera1.transform, midPoint);
+        //camera1.transform.position = Vector3.Lerp(camera1.transform.position, midPoint + followOffset, Time.deltaTime * followLerp);
+
         Quaternion newRot = Quaternion.LookRotation(midPoint - camera1.transform.position);
         camera1.transform.rotation = Quaternion.Lerp(camera1.transform.rotation, newRot, Time.deltaTime * rotationLerp);
     }
@@ -157,9 +160,21 @@ public class SplitScreen : MonoBehaviour
         if (!splitter.activeSelf) return;
 
         //Lerps the second cameras position and rotation to that of the second midpoint, so relative to the second player.
-        camera2.transform.position = Vector3.Lerp(camera2.transform.position, midPoint2 + followOffset, Time.deltaTime * followLerp);
+        //camera2.transform.position = Vector3.Lerp(camera2.transform.position, midPoint2 + followOffset, Time.deltaTime * followLerp);
+        LerpCameraPosition(camera2.transform, midPoint2);
+
         Quaternion newRot2 = Quaternion.LookRotation(midPoint2 - camera2.transform.position);
         camera2.transform.rotation = Quaternion.Lerp(camera2.transform.rotation, newRot2, Time.deltaTime * rotationLerp);
+    }
+
+    private void LerpCameraPosition(Transform camera, Vector3 midPoint)
+    {
+        Vector3 endPos = midPoint + followOffset;
+        camera.position = new Vector3(
+            Mathf.Lerp(camera.position.x, endPos.x, Time.deltaTime * followLerp),
+            Mathf.Lerp(camera.position.y, endPos.y, Time.deltaTime * followYLerp),
+            Mathf.Lerp(camera.position.z, endPos.z, Time.deltaTime * followLerp)
+            );
     }
 
     private void DeactivateSplitCamera()

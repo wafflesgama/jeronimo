@@ -40,7 +40,8 @@ public class Coin : MonoBehaviour
         LevelManager.current.GrabbedCoin();
 
         mesh.enabled = false;
-        //effect.SendEvent(grabEventName);
+        effect.SendEvent(grabEventName);
+        effect.Stop(); //Stop default emition
         rb.isKinematic = true;
         once = true;
 
