@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UEventHandler;
 
 public class LevelManager : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class LevelManager : MonoBehaviour
 
     UEventHandler eventHandler = new UEventHandler();
 
-    public static int CoinCont;
+    public int coinCont;
+    public UEvent OnGrabbedCoin = new UEvent(); 
 
     private void Awake()
     {
@@ -20,7 +22,7 @@ public class LevelManager : MonoBehaviour
     }
     void Start()
     {
-        CoinCont = 0;
+        coinCont = 0;
         PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
         PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
     }
@@ -71,6 +73,7 @@ public class LevelManager : MonoBehaviour
 
     public void GrabbedCoin()
     {
-        CoinCont++;
+        coinCont++;
+        OnGrabbedCoin.TryInvoke();
     }
 }
