@@ -3805,7 +3805,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5625805079575926287}
   m_Layer: 0
-  m_Name: Painting Room
+  m_Name: Egypt Room
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
