@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Threading.Tasks;
 
 public class LaserDestroy : MonoBehaviour
 {
@@ -9,12 +10,18 @@ public class LaserDestroy : MonoBehaviour
     public static bool[] isOn = Enumerable.Repeat(true, 10).ToArray();
     public int numLaser;
 
+    public MergeBehaviour unmerge;
+
     void OnTriggerEnter(Collider other)
     {
         inTrigger = true;
         if (other.tag == "Player")
         {
             PlayerManager.current.KnockPlayers(other.attachedRigidbody.transform, other.ClosestPointOnBounds(transform.position));
+        }
+        if (other.tag == "BigPlayer")
+        {
+            BigPlayerTimer();
         }
     }
 
@@ -35,6 +42,15 @@ public class LaserDestroy : MonoBehaviour
         if (!isOn[numLaser])
         {
             this.gameObject.SetActive(false);
+        }
+    }
+
+    async void BigPlayerTimer()
+    {
+        await Task.Delay(2000);
+        if(inTrigger){
+            //Application.LoadLevel(0);
+            unmerge.UnmergePlayers();
         }
     }
 }
