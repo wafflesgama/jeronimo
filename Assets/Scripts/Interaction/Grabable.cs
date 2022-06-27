@@ -2,16 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using DG.Tweening;
+
 [RequireComponent(typeof(Rigidbody))]
 public class Grabable : MonoBehaviour, Interactable
 {
+    [Header("Drop")]
+    public float dropDuration = 1f;
+    public Ease dropEase = Ease.InOutQuad;
+    public float dropDistance = 1.3f;
+    public float dropHeight = .7f;
+
+    [Header("Throw ")]
     public float throwThres = 1f;
     public float throwPower = 3;
+
+    [Header("Grab")]
     public Vector3 displayOffset;
     public Vector3 followOffset;
 
     public TrailRenderer trailRenderer;
-    public float trailSpedThres=3;
+    public float trailSpedThres = 3;
+
     public Vector3 GetOffset() => displayOffset;
 
     public FollowSimple follower;
@@ -66,9 +78,13 @@ public class Grabable : MonoBehaviour, Interactable
 
     public async void Drop()
     {
-        rb.isKinematic = false;
-        //rb.AddForce(rb.velocity * 2);
-        EnableColliders(true);
+        var dropPos = playerHolding.smallAnimController.transform.position + playerHolding.smallAnimController.horizontalDirection* dropDistance + (Vector3.up * dropHeight);
+
+        rb.transform.DOMove(dropPos, dropDuration).SetEase(dropEase).OnComplete(() =>
+        {
+            rb.isKinematic = false;
+            EnableColliders(true);
+        });
     }
 
     // Start is called before the first frame update

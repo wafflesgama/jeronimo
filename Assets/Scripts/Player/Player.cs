@@ -9,13 +9,18 @@ public class Player : MonoBehaviour
     public SmallPlayerMovController smallMovController;
     public SmallPlayerAnimController smallAnimController;
     public SmallPlayerVFXManager smallVfxManager;
+    public SmallPlayerUiManager smallUiManager;
 
+    public Collider reviveZone;
+    public float reviveCounter;
 
+    public bool isRevivingOther;
     public bool isKnocked { get; private set; }
 
     private void Awake()
     {
-
+        reviveCounter = 0;
+        reviveZone.gameObject.SetActive(false);
     }
     void Start()
     {
@@ -37,7 +42,9 @@ public class Player : MonoBehaviour
     {
         if (isKnocked) return;
 
+        reviveCounter = 0;
         isKnocked = true;
+        reviveZone.gameObject.SetActive(true);
 
         smallMovController.gameObject.layer = 7;  //KnockedPlayer Layer
         smallMovController.FreezePlayer();
@@ -52,6 +59,7 @@ public class Player : MonoBehaviour
         if (!isKnocked) return;
 
         isKnocked = false;
+        reviveZone.gameObject.SetActive(false);
 
         smallMovController.gameObject.layer = 6;  //Player Layer
         smallMovController.FreezePlayer(unfreeze: true);
@@ -60,5 +68,35 @@ public class Player : MonoBehaviour
     }
 
 
+    public void StartRevive()
+    {
+    }
+
+    public void StopRevive()
+    {
+    }
+
+
+    public void StartBeingRevived()
+    {
+        smallUiManager.ShowReviveMeter();
+    }
+    public void UpdateBeingRevived()
+    {
+        smallUiManager.UpdateReviveMeter(reviveCounter / 100.0f);
+    }
+
+    public void StopBeingRevived()
+    {
+        smallUiManager.HideReviveMeter();
+    }
+
+    public async void StealObject()
+    {
+        smallMovController.FreezePlayer();
+        smallAnimController.Steal();
+        await Task.Delay(800);
+        smallMovController.FreezePlayer(true);
+    }
 
 }

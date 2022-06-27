@@ -30,7 +30,7 @@ public class BoxBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Quaternion direction = player.smallAnimController.direction;
+        Quaternion direction = player.smallAnimController.rotation;
         //Debug.Log(direction);
         Vector3 playerPos = this.transform.position;
         Vector3 playerDirection = this.transform.forward;

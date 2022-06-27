@@ -1,20 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static UEventHandler;
 
+[Serializable]
+public struct Objective
+{
+    public int id;
+    public string description;
+}
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager current;
 
     bool paused = false, pauseFreeze;
 
+    public Objective[] objectives;
+
     UEventHandler eventHandler = new UEventHandler();
 
     public int coinCont;
-    public UEvent OnGrabbedCoin = new UEvent(); 
+    public UEvent OnGrabbedCoin = new UEvent();
 
     private void Awake()
     {
@@ -71,6 +81,12 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+
+    public void StealedObject(int id)
+    {
+        var objectiveCompleted = objectives.Where(x => x.id == id).FirstOrDefault();
+        LevelUiManager.current.ShowObjectiveDone(objectiveCompleted.description);
+    }
     public void GrabbedCoin()
     {
         coinCont++;

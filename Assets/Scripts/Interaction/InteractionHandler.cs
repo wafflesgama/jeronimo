@@ -17,6 +17,8 @@ public class InteractionHandler : MonoBehaviour
 
     bool canInteract;
     bool isHolding;
+    bool isInReviveZone;
+    bool isReviving;
 
     UEventHandler eventHandler = new UEventHandler();
 
@@ -32,6 +34,16 @@ public class InteractionHandler : MonoBehaviour
     }
     public bool IsInteractableNearby() => objectToInteract != null;
 
+
+    private void Update()
+    {
+        if (isReviving && player.inputManager.input_interact.value <= 0)
+        {
+            isReviving = false;
+            PlayerManager.current.StopReviveOther(player);
+        }
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.parent == null) return;
@@ -49,12 +61,22 @@ public class InteractionHandler : MonoBehaviour
         {
             LevelManager.current.GameOver();
         }
+        else if (other.transform.tag == "ReviveZone")
+        {
+            isInReviveZone = true;
+        }
 
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.parent == null) return;
+
+        if (other.transform.tag == "ReviveZone")
+        {
+            isInReviveZone = false;
+            return;
+        }
 
         //if (other.transform.parent.tag == "Interactable" || objectToInteract.transform.parent.tag != "Uninteractable")
         //{
@@ -73,6 +95,13 @@ public class InteractionHandler : MonoBehaviour
             ((Grabable)interactableToInteract).Release();
             isHolding = false;
             canInteract = true;
+            return;
+        }
+
+        if (isInReviveZone)
+        {
+            PlayerManager.current.StartStopReviveOther(player);
+            isReviving = true;
             return;
         }
 

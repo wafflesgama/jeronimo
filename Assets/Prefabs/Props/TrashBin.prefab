@@ -261,6 +261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740d1bc9ff502e14abb059a158f06d53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropDuration: 0.2
+  dropEase: 7
+  dropDistance: 1.7
+  dropHeight: 0.3
   throwThres: 1
   throwPower: 120
   displayOffset: {x: 0, y: 0, z: 0}
