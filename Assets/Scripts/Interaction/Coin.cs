@@ -21,7 +21,11 @@ public class Coin : MonoBehaviour
 
 
 
-    // Update is called once per frame
+
+    private void Start()
+    {
+        mesh.transform.eulerAngles += new Vector3(0, Random.Range(-90, 90), 0);
+    }
     void Update()
     {
         mesh.transform.eulerAngles += new Vector3(0, rotationSpeed * Time.deltaTime, 0);

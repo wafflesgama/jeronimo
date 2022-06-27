@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class SmallPlayerAnimController : MonoBehaviour
 {
-    public Quaternion direction { get; private set; }
+
     public SmallPlayerMovController movController;
     public Transform headBone;
+
+    public Quaternion rotation { get; private set; }
+    public Vector3 horizontalDirection { get; private set; }
+
 
     Animator animator;
 
@@ -45,9 +49,11 @@ public class SmallPlayerAnimController : MonoBehaviour
         if (magnitude > 0)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(vel), rotationSpeed * Time.deltaTime);
-            direction = transform.rotation;
             //transform.forward = Vector3.Lerp(transform.forward, vel, Time.deltaTime * rotationSpeed);
         }
+        rotation = transform.rotation;
+        horizontalDirection = Vector3.Scale(transform.forward, new Vector3(1, 0, 1));
+        Debug.DrawRay(transform.position, horizontalDirection);
     }
 
     void Jump()
@@ -70,4 +76,8 @@ public class SmallPlayerAnimController : MonoBehaviour
         animator.SetTrigger("Recover");
     }
 
+    public void Steal()
+    {
+        animator.SetTrigger("Steal");
+    }
 }
