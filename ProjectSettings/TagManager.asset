@@ -8,6 +8,7 @@ TagManager:
   - KeyZone
   - EntryZone
   - Interactable
+  - ReviveZone
   layers:
   - Default
   - TransparentFX

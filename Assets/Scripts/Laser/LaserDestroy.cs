@@ -8,15 +8,16 @@ public class LaserDestroy : MonoBehaviour
     public bool inTrigger;
     public static bool[] isOn = Enumerable.Repeat(true, 10).ToArray();
     public int numLaser;
-    
+
     void OnTriggerEnter(Collider other)
     {
         inTrigger = true;
-        if(other.tag == "Player"){
-            Application.LoadLevel(0);
+        if (other.tag == "Player")
+        {
+            PlayerManager.current.KnockPlayers(other.attachedRigidbody.transform, other.ClosestPointOnBounds(transform.position));
         }
     }
- 
+
     void OnTriggerExit(Collider other)
     {
         inTrigger = false;
@@ -31,7 +32,8 @@ public class LaserDestroy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isOn[numLaser]){
+        if (!isOn[numLaser])
+        {
             this.gameObject.SetActive(false);
         }
     }

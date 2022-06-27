@@ -13,7 +13,8 @@ public class CoinsCounter : MonoBehaviour
 
     [Header("Counter Punch Anim")]
     public Vector3 punchScale = Vector3.up;
-    public float punchDuration = .5f;
+    public float punchInDuration = .5f;
+    public float punchOutDuration = .5f;
     public Ease punchInEase = Ease.OutBack;
     public Ease punchOutEase = Ease.InBack;
 
@@ -48,7 +49,7 @@ public class CoinsCounter : MonoBehaviour
         counter.text = LevelManager.current.coinCont.ToString();
 
         transform.DOMoveY(initYPos, durationSlide).SetEase(slideInEase);
-        counter.transform.DOScale(punchScale, punchDuration/2).SetEase(punchInEase).OnComplete( ()=>counter.transform.DOScale(Vector3.one, punchDuration / 2).SetEase(punchOutEase));
+        counter.transform.DOScale(punchScale, punchInDuration).SetEase(punchInEase).OnComplete( ()=>counter.transform.DOScale(Vector3.one, punchOutDuration).SetEase(punchOutEase));
         showing++;
         await Task.Delay(1500);
         showing--;
