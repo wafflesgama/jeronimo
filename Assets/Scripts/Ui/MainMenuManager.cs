@@ -41,12 +41,7 @@ public class MainMenuManager : MonoBehaviour
     public void GoToCredits() => ChangeScreen(creditsGroup);
 
 
-    public async void GoToMainMenu()
-    {
-        fadeAnimator.SetBool("FadeIn", false);
-        await Task.Delay(800);
-        SceneManager.LoadScene("MainMenu");
-    }
+   
     public async void ExitGame()
     {
         //audioSource.PlaySound(fadeOutSound);
