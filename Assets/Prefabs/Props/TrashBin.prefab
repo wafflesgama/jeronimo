@@ -287,8 +287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers:
-  - {fileID: 1809947246261391407}
-  - {fileID: 1809947246241361797}
+  - {fileID: 438075558863865613}
   colYvelocityToDestroy: 2
   colVelocityToDestroy: 5
   delayToKillObj: 1000
@@ -1208,14 +1207,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a81ba062951dba409762de7d1c5f73e, type: 3}
---- !u!4 &1612138836576664674 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4a81ba062951dba409762de7d1c5f73e, type: 3}
-  m_PrefabInstance: {fileID: 1285160625000815497}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2095483441183401688 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4a81ba062951dba409762de7d1c5f73e, type: 3}
+  m_PrefabInstance: {fileID: 1285160625000815497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &438075558863865613 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 4a81ba062951dba409762de7d1c5f73e, type: 3}
+  m_PrefabInstance: {fileID: 1285160625000815497}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1612138836576664674 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4a81ba062951dba409762de7d1c5f73e, type: 3}
   m_PrefabInstance: {fileID: 1285160625000815497}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &7296643915039048541

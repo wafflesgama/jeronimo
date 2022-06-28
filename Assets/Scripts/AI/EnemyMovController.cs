@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
-
+using UnityEngine.VFX;
 
 enum EnemyState
 {
@@ -26,6 +26,7 @@ public class EnemyMovController : MonoBehaviour
 
     [Header("Animations")]
     public Animator animator;
+    public VisualEffect vfx;
 
     [Header("Chase")]
     public float chaseSpeedFactor = 1.5f;
@@ -61,6 +62,7 @@ public class EnemyMovController : MonoBehaviour
         {
             case EnemyState.IDLE:
                 animator.SetFloat("Speed", 0);
+                vfx.SetFloat("Rate", 0);
                 if (playerDetected)
                 {
 
@@ -89,9 +91,11 @@ public class EnemyMovController : MonoBehaviour
                 break;
             case EnemyState.SUSPICIOUS:
                 animator.SetFloat("Speed", 0);
+                vfx.SetFloat("Rate", 0);
                 break;
             case EnemyState.PATROLLING:
                 animator.SetFloat("Speed", 1);
+                vfx.SetFloat("Rate", 1);
                 if (playerDetected)
                 {
                     playerToChase = FindClosestPlayer();
@@ -111,6 +115,7 @@ public class EnemyMovController : MonoBehaviour
                 break;
             case EnemyState.FOLLOWING:
                 animator.SetFloat("Speed", 2f);
+                vfx.SetFloat("Rate", 1);
                 if (playerDetected)
                 {
 
@@ -126,6 +131,7 @@ public class EnemyMovController : MonoBehaviour
                 break;
             case EnemyState.SEARCHING:
                 animator.SetFloat("Speed", 1f);
+                vfx.SetFloat("Rate", 1);
                 if (playerDetected)
                 {
                     playerToChase = FindClosestPlayer();
