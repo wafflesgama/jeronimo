@@ -5,6 +5,8 @@ using System.Linq;
 
 public class SwitchLaser : MonoBehaviour
 {
+
+    public SoundController controller;
     public bool inTrigger;
     //public static bool[] isOn = Enumerable.Repeat(true, 10).ToArray();
     public int numLaser;
@@ -34,6 +36,7 @@ public class SwitchLaser : MonoBehaviour
         if(inTrigger){
             if (Input.GetKeyDown(KeyCode.E))
             {
+                controller.playOneShotEvent("event:/SFX/Click Button");
                 LedON.gameObject.SetActive(false);
                 LedOFF.gameObject.SetActive(true);
                 LaserDestroy.isOn[numLaser] = false;
