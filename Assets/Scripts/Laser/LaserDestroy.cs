@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class LaserDestroy : MonoBehaviour
 {
     public bool inTrigger;
-    public static bool[] isOn = Enumerable.Repeat(true, 10).ToArray();
+    public static bool[] isOn = Enumerable.Repeat(true, 50).ToArray();
     public int numLaser;
 
     public MergeBehaviour unmerge;
@@ -49,7 +49,6 @@ public class LaserDestroy : MonoBehaviour
     {
         await Task.Delay(2000);
         if(inTrigger){
-            //Application.LoadLevel(0);
             unmerge.UnmergePlayers();
         }
     }

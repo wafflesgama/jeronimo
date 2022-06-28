@@ -9,6 +9,7 @@ TagManager:
   - EntryZone
   - Interactable
   - ReviveZone
+  - BigPlayer
   layers:
   - Default
   - TransparentFX

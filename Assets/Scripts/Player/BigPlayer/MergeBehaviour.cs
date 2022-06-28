@@ -129,7 +129,7 @@ public class MergeBehaviour : MonoBehaviour
         {
             Vector3 tempPos = playerPos + (Vector3)(radius * Random.insideUnitCircle);
 
-            Player1Position.position = tempPos;
+            Player1Position.position = tempPos + new Vector3(1.0f, 3.0f, 0.0f);
             if (Player1Controller.isGrounded)
             {
                 break;
@@ -141,7 +141,7 @@ public class MergeBehaviour : MonoBehaviour
         {
             Vector3 tempPos = playerPos + (Vector3)(radius * Random.insideUnitCircle);
 
-            Player2Position.position = tempPos;
+            Player2Position.position = tempPos + new Vector3(0.0f, 3.0f, 1.0f);
             if (Player2Controller.isGrounded && Vector3.Distance(tempPos, Player1Position.position) >= 1.5f)
             {
                 break;

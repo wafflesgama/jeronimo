@@ -46,10 +46,10 @@ public class CoinsCounter : MonoBehaviour
 
     async void GrabbedCoin()
     {
-        counter.text = LevelManager.current.coinCont.ToString();
+        counter.text = LevelManager.coinCont.ToString();
 
         transform.DOMoveY(initYPos, durationSlide).SetEase(slideInEase);
-        counter.transform.DOScale(punchScale, punchInDuration).SetEase(punchInEase).OnComplete( ()=>counter.transform.DOScale(Vector3.one, punchOutDuration).SetEase(punchOutEase));
+        counter.transform.DOScale(punchScale, punchInDuration).SetEase(punchInEase).OnComplete(() => counter.transform.DOScale(Vector3.one, punchOutDuration).SetEase(punchOutEase));
         showing++;
         await Task.Delay(1500);
         showing--;
