@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{cfe93612-32ea-4620-893f-94ddd087158a}">
+		<property name="assetPath">
+			<value>CoreGameplay_GuardRelief.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.6845</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ce571130-28bf-45c7-9f61-e92c0a9bdae9}</destination>
+		</relationship>
+	</object>
+</objects>
