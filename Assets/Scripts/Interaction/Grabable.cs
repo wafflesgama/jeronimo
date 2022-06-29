@@ -65,7 +65,10 @@ public class Grabable : MonoBehaviour, Interactable
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
         if (playerHolding.smallMovController.rb.velocity.magnitude > throwThres)
+        {
+            SoundController.current.PlayOneShotEvent("event:/Core Gameplay/Throw");
             Throw();
+        }
         else
             Drop();
     }

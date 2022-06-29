@@ -54,6 +54,7 @@ public class MergeBehaviour : MonoBehaviour
 
     private void MergePlayers()
     {
+        SoundController.current.PlayOneShotEvent("event:/Core Gameplay/Merge");
         unmergeTimer = 1f;
         isMerged = true;
         Player1.SetActive(false);
