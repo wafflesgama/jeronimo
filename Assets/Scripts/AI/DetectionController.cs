@@ -162,6 +162,7 @@ public class DetectionController : MonoBehaviour
 
                 if (DetectionValue == 0)
                 {
+                    SoundController.current.StopAlertSound();
                     TriggerNotDetected();
                 }
             }
@@ -171,6 +172,7 @@ public class DetectionController : MonoBehaviour
     private void TrigerDetection()
     {
         m_Status = DetectionStatus.DETECTED;
+        SoundController.current.PlayAlertSound();
 
         detectionMeter.enabled = false;
         detectedMeter.enabled = true;
@@ -198,6 +200,7 @@ public class DetectionController : MonoBehaviour
         detectionMeter.enabled = true;
         detectedMeter.enabled = false;
         m_Controller.SetEnemySuspicious(true);
+        SoundController.current.PlayOneShotEvent("event:/Core Gameplay/Guard Suspect");
         detectionMeter.transform.DOScale(initMeterScale, showMeterSpeed).SetEase(showMeterEase);
     }
 
@@ -205,6 +208,7 @@ public class DetectionController : MonoBehaviour
     {
         m_Status = DetectionStatus.NOTDETECTED;
         m_Controller.SetEnemySuspicious(false);
+        SoundController.current.PlayOneShotEvent("event:/Core Gameplay/Guard Relief");
         detectionMeter.transform.DOScale(0, showMeterSpeed).SetEase(hideMeterEase);
     }
 

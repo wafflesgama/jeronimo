@@ -88,4 +88,17 @@ public class SoundController : MonoBehaviour
         instance2.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance2.release();
     }
+
+    public void PlayAlertSound()
+    {
+        instance2 = FMODUnity.RuntimeManager.CreateInstance("event:/Core Gameplay/Guard Alert");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(instance2, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        instance2.start();
+    }
+
+    public void StopAlertSound()
+    {
+        instance2.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance2.release();
+    }
 }
