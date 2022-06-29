@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{65446080-e7f4-4655-8432-f0a04d88cbcd}">
+		<property name="assetPath">
+			<value>CoreGameplay_Merge2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.2246250000000001</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ce571130-28bf-45c7-9f61-e92c0a9bdae9}</destination>
+		</relationship>
+	</object>
+</objects>
