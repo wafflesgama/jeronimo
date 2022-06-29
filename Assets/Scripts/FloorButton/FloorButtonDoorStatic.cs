@@ -65,7 +65,7 @@ public class FloorButtonDoorStatic : MonoBehaviour
     private void OpenDoor(int door)
     {
         if (door != numDoor) return;
-
+        SoundController.current.PlayOneShotEvent("event:/Interactables/Door Open");
         leftDoor.DOLocalRotate(new Vector3(0, openAngle, 0), openDuration, RotateMode.LocalAxisAdd).SetEase(openEase);
         rightDoor.DOLocalRotate(new Vector3(0, openAngle, 0), openDuration, RotateMode.LocalAxisAdd).SetEase(openEase);
     }
@@ -78,7 +78,7 @@ public class FloorButtonDoorStatic : MonoBehaviour
     private void CloseDoor(int door)
     {
         if (door != numDoor) return;
-
+        SoundController.current.PlayOneShotEvent("event:/Interactables/Door Closed");
         leftDoor.DOLocalRotate(new Vector3(0, -openAngle, 0), openDuration, RotateMode.LocalAxisAdd).SetEase(closeEase);
         rightDoor.DOLocalRotate(new Vector3(0, -openAngle, 0), openDuration, RotateMode.LocalAxisAdd).SetEase(closeEase);
 

@@ -9,6 +9,7 @@ public class SoundController : MonoBehaviour
     public static SoundController current;
 
     private FMOD.Studio.EventInstance instance;
+    private FMOD.Studio.EventInstance instance2;
     private FMOD.Studio.Bus MasterBus;
 
     public void PlayOneShotEvent(string eventName)
@@ -60,5 +61,18 @@ public class SoundController : MonoBehaviour
     private void Start()
     {
         PlayTrack("event:/Narrative/Main Hall");
+    }
+
+    public void PlayReviveSound()
+    {
+        instance2 = FMODUnity.RuntimeManager.CreateInstance("event:/Core Gameplay/Revive");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(instance2, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        instance2.start();
+    }
+
+    public void StopReviveSound()
+    {
+        instance2.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance2.release();
     }
 }

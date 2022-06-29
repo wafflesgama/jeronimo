@@ -17,10 +17,12 @@ public class LaserDestroy : MonoBehaviour
         inTrigger = true;
         if (other.tag == "Player")
         {
+            SoundController.current.PlayOneShotEvent("event:/Interactables/Laser");
             PlayerManager.current.KnockPlayers(other.attachedRigidbody.transform, other.ClosestPointOnBounds(transform.position));
         }
         if (other.tag == "BigPlayer")
         {
+            SoundController.current.PlayOneShotEvent("event:/Interactables/Laser");
             BigPlayerTimer();
         }
     }

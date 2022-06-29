@@ -83,10 +83,12 @@ public class PlayerManager : MonoBehaviour
 
         if (playerKnocked.parent.name == player1.name)
         {
+            soundController.PlayOneShotEvent("event:/Core Gameplay/Player Kock");
             player1.KnockPlayer(knockPos);
         }
         else
         {
+            soundController.PlayOneShotEvent("event:/Core Gameplay/Player Kock");
             player2.KnockPlayer(knockPos);
         }
 
@@ -117,6 +119,7 @@ public class PlayerManager : MonoBehaviour
 
         playerReviving.isRevivingOther = true;
 
+        soundController.PlayReviveSound();
         playerReviving.StartRevive();
         otherPlayer.StartBeingRevived();
 
@@ -146,6 +149,7 @@ public class PlayerManager : MonoBehaviour
             player2.UpdateBeingRevived();
             if (player2.reviveCounter >= 100)
             {
+                soundController.StopReviveSound();
                 StopReviveOther(player1);
                 player2.RecoverPlayer();
             }
@@ -156,6 +160,7 @@ public class PlayerManager : MonoBehaviour
             player1.UpdateBeingRevived();
             if (player1.reviveCounter >= 100)
             {
+                soundController.StopReviveSound();
                 StopReviveOther(player2);
                 player1.RecoverPlayer();
             }
@@ -170,6 +175,7 @@ public class PlayerManager : MonoBehaviour
             if (player1.reviveCounter < 0)
             {
                 player1.reviveCounter = 0;
+                soundController.StopReviveSound();
                 player1.StopBeingRevived();
             }
         }
@@ -179,6 +185,7 @@ public class PlayerManager : MonoBehaviour
             if (player2.reviveCounter < 0)
             {
                 player2.reviveCounter = 0;
+                soundController.StopReviveSound();
                 player2.StopBeingRevived();
             }
         }
