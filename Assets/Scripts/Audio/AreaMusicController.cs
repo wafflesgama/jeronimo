@@ -27,7 +27,7 @@ public class AreaMusicController : MonoBehaviour
         if (isActive)
         {
             isActive = false;
-            soundController.PlayTrack("event:/Narrative/Main Hall");
+            soundController.StopPlaying();
         }
     }
 }

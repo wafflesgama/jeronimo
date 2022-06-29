@@ -58,11 +58,6 @@ public class SoundController : MonoBehaviour
         MasterBus = FMODUnity.RuntimeManager.GetBus("Bus:/");
     }
 
-    private void Start()
-    {
-        PlayTrack("event:/Narrative/Main Hall");
-    }
-
     public void PlayReviveSound()
     {
         instance2 = FMODUnity.RuntimeManager.CreateInstance("event:/Core Gameplay/Revive");
