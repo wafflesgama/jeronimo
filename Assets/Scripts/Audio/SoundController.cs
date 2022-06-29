@@ -15,6 +15,12 @@ public class SoundController : MonoBehaviour
 
     public void PlayTrack(string eventName)
     {
+        if(instance.isValid())
+        {
+            instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            instance.release();
+        }
+
         instance = FMODUnity.RuntimeManager.CreateInstance(eventName);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(instance, GetComponent<Transform>(), GetComponent<Rigidbody>());
         instance.start();
