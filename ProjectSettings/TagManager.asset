@@ -10,6 +10,7 @@ TagManager:
   - Interactable
   - ReviveZone
   - BigPlayer
+  - Painting
   layers:
   - Default
   - TransparentFX

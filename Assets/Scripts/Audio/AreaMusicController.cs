@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class AreaMusicController : MonoBehaviour
 {
+    // Start is called before the first frame update
+    private int playerCount = 0;
+
     private bool isActive = false;
 
     public string eventName;
     public SoundController soundController;
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,6 +24,10 @@ public class AreaMusicController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        isActive = false;   
+        if (isActive)
+        {
+            isActive = false;
+            soundController.PlayTrack("event:/Narrative/Main Hall");
+        }
     }
 }

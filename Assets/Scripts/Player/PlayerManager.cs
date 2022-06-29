@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager current;
+    public SoundController soundController;
 
     public Player player1;
     public Player player2;
@@ -93,6 +94,7 @@ public class PlayerManager : MonoBehaviour
         if (player1.isKnocked && player2.isKnocked)
         {
             //Reset Game
+            soundController.StopAllEvents();
             LevelManager.current.GameOver();
         }
 

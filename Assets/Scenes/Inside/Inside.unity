@@ -21239,6 +21239,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7230827550112437173, guid: dd4ddbf91ca027e4f9e44c863bf1872c, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4ddbf91ca027e4f9e44c863bf1872c, type: 3}
 --- !u!4 &417926818 stripped
@@ -28209,6 +28213,10 @@ PrefabInstance:
       propertyPath: numDoor
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2134969191776776391, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 2134969191776776395, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -28225,6 +28233,10 @@ PrefabInstance:
       propertyPath: numDoor
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 2274676095307175061, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 2274676095307175065, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -28337,6 +28349,10 @@ PrefabInstance:
       propertyPath: numDoor
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5463284918409367260, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 5633458523455394939, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
       propertyPath: numLaser
       value: 4
@@ -28537,10 +28553,18 @@ PrefabInstance:
       propertyPath: numDoor
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6032288969982969661, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 6201003158074097446, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
       propertyPath: numDoor
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6201003158074097446, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 6201003158074097450, guid: d7c9d0729dd6dfd40a01693dff49e4a1, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -38321,6 +38345,18 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interactable
       objectReference: {fileID: 0}
+    - target: {fileID: 6141493900191133415, guid: 0b3c2308d405e734b80d9b18f1042104, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
+    - target: {fileID: 6298775787070147312, guid: 0b3c2308d405e734b80d9b18f1042104, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
+    - target: {fileID: 6298775787470019281, guid: 0b3c2308d405e734b80d9b18f1042104, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 6311860715168825610, guid: 0b3c2308d405e734b80d9b18f1042104, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -38397,6 +38433,10 @@ PrefabInstance:
       propertyPath: numDoor
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 8998814323149782914, guid: 0b3c2308d405e734b80d9b18f1042104, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 9187675153860570832, guid: 0b3c2308d405e734b80d9b18f1042104, type: 3}
       propertyPath: controller
       value: 
@@ -39533,11 +39573,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 517945059
-      Data2: 1162997920
-      Data3: 1281549192
-      Data4: -565350530
-    Path: event:/Interactables/Coin
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -56119,6 +56159,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7230827550112437173, guid: dd4ddbf91ca027e4f9e44c863bf1872c, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd4ddbf91ca027e4f9e44c863bf1872c, type: 3}
 --- !u!4 &1061574350 stripped
@@ -74999,6 +75043,10 @@ PrefabInstance:
       propertyPath: playerManager
       value: 
       objectReference: {fileID: 1231501520}
+    - target: {fileID: 7442612499834218636, guid: b3d7a2d1f7bdb2546a7ccb11fddd0d39, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 7442612499834218637, guid: b3d7a2d1f7bdb2546a7ccb11fddd0d39, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -82844,7 +82892,7 @@ BoxCollider:
   m_GameObject: {fileID: 1609486551}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 82.20763, y: 39.016033, z: 138.97707}
   m_Center: {x: 1.1209583, y: 10.979681, z: 54.217155}
@@ -84245,7 +84293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795273364922342547, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 107.7
+      value: 89.5
       objectReference: {fileID: 0}
     - target: {fileID: 4795273364922342547, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -84253,7 +84301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795273364922342547, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.97999
+      value: 41
       objectReference: {fileID: 0}
     - target: {fileID: 4795273365399215196, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_Layer
@@ -84269,7 +84317,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795273365791541115, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.7
+      value: 37.37
       objectReference: {fileID: 0}
     - target: {fileID: 4795273365791541115, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -84277,7 +84325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4795273365791541115, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.9
+      value: 79.8
       objectReference: {fileID: 0}
     - target: {fileID: 4795273365870962851, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_LocalPosition.x

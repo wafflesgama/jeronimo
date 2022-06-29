@@ -97,6 +97,7 @@ public class LevelManager : MonoBehaviour
     [ContextMenu("Game Over")]
     public async void GameOver()
     {
+        
         endTime = DateTime.Now;
         LevelUiManager.current.FadeScreen(false);
         await Task.Delay(1500);
