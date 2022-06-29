@@ -85,11 +85,13 @@ public class PlayerManager : MonoBehaviour
         {
             soundController.PlayOneShotEvent("event:/Core Gameplay/Player Kock");
             player1.KnockPlayer(knockPos);
+            soundController.PlayDizzySound();
         }
         else
         {
             soundController.PlayOneShotEvent("event:/Core Gameplay/Player Kock");
             player2.KnockPlayer(knockPos);
+            soundController.PlayDizzySound();
         }
 
 
@@ -119,6 +121,7 @@ public class PlayerManager : MonoBehaviour
 
         playerReviving.isRevivingOther = true;
 
+        soundController.StopDizzySound();
         soundController.PlayReviveSound();
         playerReviving.StartRevive();
         otherPlayer.StartBeingRevived();
@@ -176,6 +179,7 @@ public class PlayerManager : MonoBehaviour
             {
                 player1.reviveCounter = 0;
                 soundController.StopReviveSound();
+                soundController.PlayDizzySound();
                 player1.StopBeingRevived();
             }
         }
@@ -186,6 +190,7 @@ public class PlayerManager : MonoBehaviour
             {
                 player2.reviveCounter = 0;
                 soundController.StopReviveSound();
+                soundController.PlayDizzySound();
                 player2.StopBeingRevived();
             }
         }

@@ -75,4 +75,17 @@ public class SoundController : MonoBehaviour
         instance2.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         instance2.release();
     }
+
+    public void PlayDizzySound()
+    {
+        instance2 = FMODUnity.RuntimeManager.CreateInstance("event:/Core Gameplay/Dizzy");
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(instance2, GetComponent<Transform>(), GetComponent<Rigidbody>());
+        instance2.start();
+    }
+
+    public void StopDizzySound()
+    {
+        instance2.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        instance2.release();
+    }
 }
