@@ -46,7 +46,7 @@ public class SmallPlayerAnimController : MonoBehaviour
 
         vel.Normalize();
 
-        if (magnitude > 0)
+        if (magnitude > 0 && vel!= Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(vel), rotationSpeed * Time.deltaTime);
             //transform.forward = Vector3.Lerp(transform.forward, vel, Time.deltaTime * rotationSpeed);

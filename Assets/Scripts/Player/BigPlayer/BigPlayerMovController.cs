@@ -99,7 +99,7 @@ public class BigPlayerMovController : MonoBehaviour
     }
     public void ResetInertia()
     {
-        Debug.Log("Reset Intertia");
+        //Debug.Log("Reset Intertia");
         OnReset.TryInvoke();
         stepCounter = 1;
     }

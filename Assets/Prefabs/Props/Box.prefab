@@ -173,7 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderers:
-  - {fileID: 0}
+  - {fileID: 2139158483726646762}
   colYvelocityToDestroy: 2
   colVelocityToDestroy: 5
   delayToKillObj: 1000
@@ -1207,6 +1207,11 @@ GameObject:
 --- !u!4 &1001203820838372997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 554508055131b774dad08f9477504943, type: 3}
+  m_PrefabInstance: {fileID: 751613983091892590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2139158483726646762 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 554508055131b774dad08f9477504943, type: 3}
   m_PrefabInstance: {fileID: 751613983091892590}
   m_PrefabAsset: {fileID: 0}
 --- !u!65 &751613981703535503

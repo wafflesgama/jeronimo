@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Footstep : MonoBehaviour
 {
-    public SoundController controller;
     public int player;
 
     private string eventName;
@@ -17,6 +16,6 @@ public class Footstep : MonoBehaviour
     private void OnTriggerEnter(Collider collision)
     {
         Debug.Log(player);
-        controller.playOneShotEvent(eventName);
+        SoundController.current.PlayOneShotEvent(eventName);
     }
 }

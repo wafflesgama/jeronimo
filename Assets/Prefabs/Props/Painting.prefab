@@ -141,11 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a28e27cacfc7e70479097f0a63c37217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UID: -194222382
-  color: {r: 1, g: 1, b: 1, a: 1}
-  intensity: 2
+  UID: -1786469261
+  color: {r: 0.9763974, g: 0.9811321, b: 0.5683161, a: 1}
+  intensity: 3
   texture: {fileID: 0}
-  cutoff: 100
+  cutoff: 8
   samples: 256
   samples2: 16
   bitmask: 1

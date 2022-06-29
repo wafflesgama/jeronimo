@@ -6,7 +6,6 @@ using System.Linq;
 public class SwitchLaser : MonoBehaviour
 {
 
-    public SoundController controller;
     public bool inTrigger;
     //public static bool[] isOn = Enumerable.Repeat(true, 10).ToArray();
     public int numLaser;
@@ -17,13 +16,14 @@ public class SwitchLaser : MonoBehaviour
     {
         inTrigger = true;
     }
- 
+
     void OnTriggerExit(Collider other)
     {
         inTrigger = false;
     }
 
-    void Start(){
+    void Start()
+    {
         LedON = transform.GetChild(1).gameObject;
         LedOFF = transform.GetChild(2).gameObject;
         LedON.gameObject.SetActive(true);
@@ -33,10 +33,11 @@ public class SwitchLaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(inTrigger){
+        if (inTrigger)
+        {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                controller.playOneShotEvent("event:/SFX/Click Button");
+                SoundController.current.PlayOneShotEvent("event:/SFX/Click Button");
                 LedON.gameObject.SetActive(false);
                 LedOFF.gameObject.SetActive(true);
                 LaserDestroy.isOn[numLaser] = false;

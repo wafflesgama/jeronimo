@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
+    public static SoundController current;
+
     private FMOD.Studio.EventInstance instance;
 
-    public void playOneShotEvent(string eventName)
+    public void PlayOneShotEvent(string eventName)
     {
         FMODUnity.RuntimeManager.PlayOneShot(eventName);
     }
@@ -16,6 +18,11 @@ public class SoundController : MonoBehaviour
         instance = FMODUnity.RuntimeManager.CreateInstance(eventName);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(instance, GetComponent<Transform>(), GetComponent<Rigidbody>());
         instance.start();
+    }
+
+    private void Awake()
+    {
+        current = this;
     }
 
     private void Start()
