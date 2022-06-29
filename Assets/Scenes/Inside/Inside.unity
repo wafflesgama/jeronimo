@@ -84347,6 +84347,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 8920749698992454979, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
+      propertyPath: soundController
+      value: 
+      objectReference: {fileID: 697637174}
     - target: {fileID: 8920749698992454982, guid: 2f8edaaf90972194dad990ae99b05ef1, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -49,7 +49,10 @@ public class Coin : MonoBehaviour
         rb.isKinematic = true;
         once = true;
 
+
         await Task.Delay(2000);
+
+        
 
         if (gameObject != null)
             Destroy(gameObject);

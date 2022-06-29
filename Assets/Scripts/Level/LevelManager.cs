@@ -116,6 +116,7 @@ public class LevelManager : MonoBehaviour
     }
     public void GrabbedCoin()
     {
+        SoundController.current.PlayOneShotEvent("event:/Interactables/Coin");
         coinCont++;
         OnGrabbedCoin.TryInvoke();
     }
