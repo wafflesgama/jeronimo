@@ -89,6 +89,7 @@ public class LevelManager : MonoBehaviour
         endTime = DateTime.Now;
         objectivesScore = objectives;
 
+        SoundController.current.PlayOneShotEvent("event:/Stingers/Victory");
         LevelUiManager.current.FadeScreen(false);
         await Task.Delay(1500);
         SceneManager.LoadScene("Score");

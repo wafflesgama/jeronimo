@@ -45,6 +45,7 @@ public class MainMenuManager : MonoBehaviour
     public async void ExitGame()
     {
         //audioSource.PlaySound(fadeOutSound);
+        SoundController.current.PlayOneShotEvent("event:/SFX/Settings Pop-up in");
         Cursor.visible = false;
         //audioSource.PlaySound(clickSound);
         fadeAnimator.SetBool("FadeIn", false);
@@ -54,7 +55,7 @@ public class MainMenuManager : MonoBehaviour
 
     public async void GoToGame()
     {
-        //audioSource.PlaySound(fadeOutSound);
+        SoundController.current.PlayOneShotEvent("event:/SFX/Click Button");
         Cursor.visible = false;
         //audioSource.PlaySound(clickSound);
         fadeAnimator.SetBool("FadeIn", false);
@@ -67,6 +68,7 @@ public class MainMenuManager : MonoBehaviour
     private async void ChangeScreen(CanvasGroup outGroup)
     {
         //audioSource.PlaySound(clickSound);
+        SoundController.current.PlayOneShotEvent("event:/SFX/Click Button");
         //audioSource.PlaySound(fadeOutSound);
         fadeAnimator.SetBool("FadeIn", false);
         await Task.Delay(800);
