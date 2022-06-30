@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class SwitchLaser : MonoBehaviour
+public class SwitchLaser : MonoBehaviour, Interactable
 {
 
     public bool inTrigger;
     //public static bool[] isOn = Enumerable.Repeat(true, 10).ToArray();
     public int numLaser;
     private string eventName = "event:/SFX/Click Button";
+
+    public Vector3 displayOffset;
+    public Collider[] colliders;
 
     public GameObject LedON, LedOFF;
 
@@ -31,25 +34,26 @@ public class SwitchLaser : MonoBehaviour
         LedOFF.gameObject.SetActive(false);
     }
 
+
+    private void Awake()
+    {
+        colliders = this.gameObject.GetComponentsInChildren<Collider>().Where(x => !x.isTrigger).ToArray();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if (inTrigger)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                SoundController.current.PlayOneShotEvent(eventName);
-                LedON.gameObject.SetActive(false);
-                LedOFF.gameObject.SetActive(true);
-                LaserDestroy.isOn[numLaser] = false;
-            }
-        }
     }
 
-    /*void OnGUI()
+    public Vector3 GetOffset() => displayOffset;
+
+    public void Interact(Player player)
     {
-        if(inTrigger){
-            GUI.Box(new Rect(0, 0, 500, 100), "Press E to turn laser off");
-        }
-    }*/
+
+        SoundController.current.PlayOneShotEvent(eventName);
+        LedON.gameObject.SetActive(false);
+        LedOFF.gameObject.SetActive(true);
+        LaserDestroy.isOn[numLaser] = false;
+    }
+
 }
