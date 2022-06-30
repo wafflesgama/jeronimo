@@ -60,6 +60,7 @@ public class MainMenuManager : MonoBehaviour
         //audioSource.PlaySound(clickSound);
         fadeAnimator.SetBool("FadeIn", false);
         await Task.Delay(800);
+        SoundController.current.StopAllEvents();
         SceneManager.LoadScene("Inside");
     }
     //private void FadeScreen(bool fadeIn) => fade.DOFade(fadeIn ? 1 : 0, fadeSpeed).SetEase(Ease.InOutQuad);
