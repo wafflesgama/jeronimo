@@ -8,6 +8,7 @@ public class FinalAreaTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        manager.GameWin();
+        if(other.gameObject.tag == "Player" || other.gameObject.tag == "BigPlayer")
+            manager.GameWin();
     }
 }
