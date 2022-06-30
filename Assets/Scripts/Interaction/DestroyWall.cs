@@ -19,7 +19,7 @@ public class DestroyWall : MonoBehaviour
 
             foreach (Transform child in BrokenWall.transform)
             {
-                child.gameObject.GetComponent<Rigidbody>().AddForce(50f, 50f,0,ForceMode.Impulse);
+                child.gameObject.GetComponent<Rigidbody>().AddForce(50f, 0,50f,ForceMode.Impulse);
             }
             Destroy(gameObject);
         }
