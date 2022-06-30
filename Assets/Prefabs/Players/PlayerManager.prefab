@@ -2079,6 +2079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db29cd151ef1bd74e9cb8e964a2224f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundController: {fileID: 0}
   player1: {fileID: 338397600}
   player2: {fileID: 777827961}
   reviveRate: 0.35
@@ -2577,10 +2578,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9169274154014496969, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
+      propertyPath: m_TagString
+      value: BigPlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 9169274154085163336, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
       propertyPath: inputManager
       value: 
       objectReference: {fileID: 8920749699045942186}
+    - target: {fileID: 9169274154085163337, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
+      propertyPath: m_TagString
+      value: BigPlayer
+      objectReference: {fileID: 0}
     - target: {fileID: 9169274154671809804, guid: 7e155bd168714ef4886bd2a65c9ce994, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3073,20 +3082,6 @@ MonoBehaviour:
   reviveMeter: {fileID: 1233682315}
   showMeterDuration: 0.2
   hideMeterDuration: 0.15
---- !u!114 &1824489602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4795273366749548834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88d52affcbb193847b9062c5bc0a3d90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToInteract: {fileID: 0}
-  player: {fileID: 777827961}
 --- !u!208 &1824489601
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -3103,6 +3098,20 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.14, y: -0.64, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1824489602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795273366749548834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d52affcbb193847b9062c5bc0a3d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToInteract: {fileID: 0}
+  player: {fileID: 777827961}
 --- !u!1001 &8920749699153838748
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3288,20 +3297,6 @@ MonoBehaviour:
   reviveMeter: {fileID: 1209385395}
   showMeterDuration: 0.2
   hideMeterDuration: 0.15
---- !u!114 &2036089450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4795273365575994058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88d52affcbb193847b9062c5bc0a3d90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToInteract: {fileID: 0}
-  player: {fileID: 338397600}
 --- !u!208 &2036089449
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -3318,3 +3313,17 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.14, y: -0.64, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &2036089450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4795273365575994058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88d52affcbb193847b9062c5bc0a3d90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToInteract: {fileID: 0}
+  player: {fileID: 338397600}

@@ -49,7 +49,7 @@ public class LaserDestroy : MonoBehaviour
 
     async void BigPlayerTimer()
     {
-        await Task.Delay(2000);
+        await Task.Delay(100);
         if(inTrigger){
             unmerge.UnmergePlayers();
         }

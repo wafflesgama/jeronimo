@@ -10,7 +10,8 @@ public class DestroyWall : MonoBehaviour
 
     private void OnCollisionEnter(Collision collider)
     {
-        if (collider.gameObject.tag == "BigPlayer" && collider.relativeVelocity.magnitude>destroyVelocity)
+
+        if (collider.gameObject.tag == "BigPlayer")
         {
             Destroyed.SetActive(true);
             GameObject tmp=Destroyed.transform.GetChild(1).gameObject;
