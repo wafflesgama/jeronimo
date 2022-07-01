@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{bdaf6039-72b3-419a-aab5-3e9ab27c2be6}">
+		<property name="assetPath">
+			<value>SFX_MenuTransition.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.7376458333333331</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{ce571130-28bf-45c7-9f61-e92c0a9bdae9}</destination>
+		</relationship>
+	</object>
+</objects>

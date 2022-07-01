@@ -121,10 +121,10 @@
 	</object>
 	<object class="LoopRegion" id="{d26f8f6c-36a6-4f50-bb81-db9228a783fd}">
 		<property name="position">
-			<value>0</value>
+			<value>1.6123626150306747</value>
 		</property>
 		<property name="length">
-			<value>152.35658333333333</value>
+			<value>150.74422071830264</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{037c96c3-444e-4840-a39b-b2dd380fc551}</destination>
@@ -171,7 +171,7 @@
 			<value>0</value>
 		</property>
 		<property name="curveShape">
-			<value>-0.2547189</value>
+			<value>-0.465901017</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{3144f561-b3ee-46ff-888f-ef476444bc6f}">
