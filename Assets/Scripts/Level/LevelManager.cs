@@ -43,7 +43,7 @@ public class LevelManager : MonoBehaviour
         objectivesScore = objectives;
 
         PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
-        PlayerManager.current.player1.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
+        PlayerManager.current.player2.inputManager.input_pause.Onpressed.Subscribe(eventHandler, PauseResume);
     }
 
     private void OnDestroy()
@@ -98,7 +98,7 @@ public class LevelManager : MonoBehaviour
     [ContextMenu("Game Over")]
     public async void GameOver()
     {
-        
+
         endTime = DateTime.Now;
         LevelUiManager.current.FadeScreen(false);
         await Task.Delay(1500);

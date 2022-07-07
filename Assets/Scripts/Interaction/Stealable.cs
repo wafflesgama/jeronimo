@@ -11,6 +11,8 @@ public class Stealable : MonoBehaviour, Interactable
     public float hideDuration;
     public Ease hideEase;
 
+    public Transform objectAnim;
+
     public Vector3 displayOffset;
 
     public Vector3 GetOffset() => displayOffset;
@@ -34,7 +36,14 @@ public class Stealable : MonoBehaviour, Interactable
         transform.tag = "Untagged";
         LevelManager.current.StealedObject(objectId);
         player.StealObject();
-        transform.DOScale(Vector3.zero, hideDuration).SetEase(hideEase);
+
+        Transform obj = transform;
+
+        if (objectAnim != null)
+            obj = objectAnim;
+
+        obj.DOScale(Vector3.zero, hideDuration).SetEase(hideEase);
+        
         await Task.Delay(1500);
 
     }

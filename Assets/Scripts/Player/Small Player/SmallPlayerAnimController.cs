@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
+using DG.Tweening;
 
 public class SmallPlayerAnimController : MonoBehaviour
 {
@@ -10,7 +12,12 @@ public class SmallPlayerAnimController : MonoBehaviour
 
     public Quaternion rotation { get; private set; }
     public Vector3 horizontalDirection { get; private set; }
+    public Rig holdRig;
+    public float holdDuration;
+    public Ease holdEaseIn;
+    public Ease holdEaseOut;
 
+    private float holdValue = 0;
 
     Animator animator;
 
@@ -46,7 +53,7 @@ public class SmallPlayerAnimController : MonoBehaviour
 
         vel.Normalize();
 
-        if (magnitude > 0 && vel!= Vector3.zero)
+        if (magnitude > 0 && vel != Vector3.zero)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(vel), rotationSpeed * Time.deltaTime);
             //transform.forward = Vector3.Lerp(transform.forward, vel, Time.deltaTime * rotationSpeed);
@@ -79,5 +86,23 @@ public class SmallPlayerAnimController : MonoBehaviour
     public void Steal()
     {
         animator.SetTrigger("Steal");
+    }
+
+    public void HoldObj()
+    {
+        DOTween.To(() => holdValue, x => holdValue = x, .75f, holdDuration).SetEase(holdEaseIn)
+    .OnUpdate(() =>
+    {
+        holdRig.weight = holdValue;
+    });
+    }
+
+    public void ReleaseObj()
+    {
+        DOTween.To(() => holdValue, x => holdValue = x, 0, holdDuration).SetEase(holdEaseOut)
+     .OnUpdate(() =>
+     {
+         holdRig.weight = holdValue;
+     });
     }
 }

@@ -36,8 +36,9 @@ public class Player : MonoBehaviour
 
     public void GrabObject()
     {
-
+        smallAnimController.HoldObj();
     }
+
     public void KnockPlayer(Vector3 knockPos)
     {
         if (isKnocked) return;

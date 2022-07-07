@@ -63,6 +63,7 @@ public class Grabable : MonoBehaviour, Interactable
     {
         follower.followTarget = null;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
+        playerHolding.smallAnimController.ReleaseObj();
 
         if (playerHolding.smallMovController.rb.velocity.magnitude > throwThres)
         {
@@ -72,16 +73,16 @@ public class Grabable : MonoBehaviour, Interactable
         else
             Drop();
     }
-    public async void Throw()
+    public  void Throw()
     {
         rb.isKinematic = false;
         rb.AddForce(playerHolding.smallMovController.rb.velocity * throwPower);
         EnableColliders(true);
     }
 
-    public async void Drop()
+    public  void Drop()
     {
-        var dropPos = playerHolding.smallAnimController.transform.position + playerHolding.smallAnimController.horizontalDirection* dropDistance + (Vector3.up * dropHeight);
+        var dropPos = playerHolding.smallAnimController.transform.position + playerHolding.smallAnimController.horizontalDirection * dropDistance + (Vector3.up * dropHeight);
 
         rb.transform.DOMove(dropPos, dropDuration).SetEase(dropEase).OnComplete(() =>
         {
